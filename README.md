@@ -10,7 +10,7 @@
 
 
 ## 内容预览
-
+![image](./image/show.gif)
 ![image](./image/index.png)
 ![image](./image/shop_car.png)
 ![image](./image/car.png)
