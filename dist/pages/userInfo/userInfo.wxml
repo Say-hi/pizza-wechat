@@ -1,0 +1,11 @@
+<view class="f30 bd1">
+  <text class="c666">会员等级</text>
+  <text class="main-text-color">lv.1</text>
+</view>
+
+<view class="f30 bd1">
+  <text class="c666">会员号</text>
+  <text class="c999">52165465136</text>
+</view>
+
+<view catchtap="address" class="f30 c666 bd1 arrow">收货地址</view>

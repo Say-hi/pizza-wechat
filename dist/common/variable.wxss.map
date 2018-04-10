@@ -1,0 +1,1 @@
+{"version":3,"names":[],"mappings":"","sources":["common/variable.less"],"sourcesContent":["@mainBackgroundColor: #f30;\r\n@mainTextColor: #f30;\r\n@tabBgColor: #f7f7f7;"],"file":"variable.wxss"}

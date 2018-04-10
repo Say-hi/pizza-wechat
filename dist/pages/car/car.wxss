@@ -1,0 +1,140 @@
+page {
+  background-color: #f7f7f7;
+}
+.car-t {
+  padding: 0 20rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.m-l {
+  margin-top: 20rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  padding-left: 20rpx;
+}
+.m-l image {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 10rpx;
+}
+.m-l .m-l-c {
+  flex: 1;
+  margin-left: 20rpx;
+}
+.m-l .m-l-c .f22 {
+  margin-top: 10rpx;
+}
+.m-l .m-l-c .ico {
+  background-color: #f30;
+  padding: 0 6rpx;
+  margin-right: 10rpx;
+}
+.m-l .choose-count {
+  display: flex;
+}
+.m-l .choose-size {
+  line-height: 44rpx;
+}
+.m-l .m-l-r {
+  display: flex;
+  align-items: center;
+  margin-right: 20rpx;
+}
+.m-l .m-l-r .order-btn,
+.m-l .m-l-r .order-num {
+  width: 44rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #f30;
+  margin: 0 10rpx;
+  vertical-align: middle;
+  font-size: 50rpx;
+}
+.m-l .m-l-r .order-num {
+  background: #fff;
+  margin: 0;
+  width: inherit;
+  font-size: 24rpx;
+}
+.m-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 88rpx;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.m-bottom .icon-gouwuche {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background-color: #f30;
+  text-align: center;
+  line-height: 100rpx;
+  font-size: 50rpx;
+  position: relative;
+  transform: translateY(-50%);
+  margin-left: 20rpx;
+}
+.m-bottom .icon-gouwuche text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 13rpx;
+  height: 33rpx;
+  padding: 0 10rpx;
+  border-radius: 33rpx;
+  line-height: 33rpx;
+  transform: translateX(25%);
+  background-color: #ff9000;
+}
+.m-bottom .m-money {
+  flex: 1;
+  padding-right: 30rpx;
+  text-align: right;
+}
+.m-bottom .confirm {
+  height: 100%;
+  width: 220rpx;
+  line-height: 88rpx;
+  background-color: #f30;
+}
+.noNext::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.r-c {
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx;
+}
+.del-btn {
+  background-color: #f30;
+  line-height: 140rpx;
+  padding: 0 8rpx;
+}
+.wx-radio-input-checked {
+  border-color: #f30 !important;
+  background-color: #f30 !important;
+}
+.noGoods {
+  position: fixed;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+}

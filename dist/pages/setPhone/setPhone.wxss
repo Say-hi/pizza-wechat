@@ -1,0 +1,27 @@
+page {
+  background-color: #f7f7f7;
+}
+.bd1 {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  height: 110rpx;
+  padding: 0 20rpx;
+}
+.bd1:nth-child(1) {
+  border-top: 1rpx solid #ccc;
+}
+.bd1 .iconfont {
+  margin-right: 20rpx;
+}
+.bd1 .iconfont:before {
+  font-size: 40rpx;
+}
+.bd1 .send-code {
+  padding: 0 8rpx;
+  background-color: #f30;
+}
+.confirm-btn {
+  background-color: #f30;
+  margin: 20rpx;
+}

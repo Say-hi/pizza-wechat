@@ -1,0 +1,180 @@
+.index-p-l {
+  padding-left: 80rpx;
+}
+.index-icon::before {
+  color: #999;
+  position: absolute;
+  top: 50%;
+  left: 20rpx;
+  font-size: 30rpx;
+  transform: translateY(-50%);
+}
+.banner {
+  height: 390rpx;
+}
+.banner image {
+  width: 100%;
+}
+.banner .wx-swiper-dot {
+  width: 22rpx;
+  height: 22rpx;
+}
+.banner .wx-swiper-dot-active {
+  width: 22rpx !important;
+  height: 22rpx !important;
+}
+.banner2 {
+  height: 160rpx;
+  text-align: center;
+  padding: 20rpx 0;
+}
+.banner2 image {
+  width: 690rpx;
+  height: inherit;
+  border-radius: 160rpx;
+}
+.banner2 .wx-swiper-dot {
+  width: 7rpx;
+  height: 7rpx;
+}
+.banner2 .wx-swiper-dot-active {
+  width: 28rpx !important;
+  height: 7rpx !important;
+  border-radius: 7rpx;
+}
+.tab-bg {
+  line-height: 70rpx;
+  padding-left: 50rpx;
+}
+.introduce {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  padding-right: 40rpx;
+}
+.new-user-coupon {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all .5s;
+}
+.new-user-coupon .new-user-coupon-in {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.new-user-coupon .new-user-coupon-in image {
+  width: 504rpx;
+  height: 720rpx;
+}
+.new-user-coupon .new-user-coupon-in .new-user-coupon-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.new-user-coupon .new-user-coupon-in .new-user-coupon-text .new-title {
+  margin-top: 40rpx;
+  position: relative;
+}
+.new-user-coupon .new-user-coupon-in .new-user-coupon-text .new-title:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-180%, -50%);
+  width: 100rpx;
+  height: 2rpx;
+  background-color: #fff;
+}
+.new-user-coupon .new-user-coupon-in .new-user-coupon-text .new-title:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 100rpx;
+  transform: translate(180%, -50%);
+  height: 2rpx;
+  background-color: #fff;
+}
+.new-user-coupon .new-user-coupon-in .new-user-coupon-text .coupon {
+  margin-top: 40rpx;
+  position: relative;
+  transform: translateX(6%);
+  width: 440rpx;
+  min-height: 120rpx;
+  background-color: #fff;
+  display: flex;
+  padding: 10rpx;
+  color: #fff;
+}
+.new-user-coupon .new-user-coupon-in .new-user-coupon-text .coupon .c-left {
+  padding: 10rpx;
+  border-radius: 10rpx;
+  min-width: 100rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background: linear-gradient(90deg, #ff3401, #ff3e0e);
+  position: relative;
+}
+.new-user-coupon .new-user-coupon-in .new-user-coupon-text .coupon .c-left:after {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+  content: '';
+  height: 15rpx;
+  width: 15rpx;
+  background-color: #fff;
+  border-radius: 50%;
+}
+.new-user-coupon .new-user-coupon-in .new-user-coupon-text .coupon .c-left:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  height: 15rpx;
+  width: 15rpx;
+  background-color: #fff;
+  content: '';
+  border-radius: 50%;
+}
+.new-user-coupon .new-user-coupon-in .new-user-coupon-text .coupon .c-right {
+  padding: 10rpx;
+  flex: 1;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 15rpx;
+  background: linear-gradient(90deg, #ff3e0e, #ff7305);
+}
+.new-user-coupon .new-user-coupon-in .new-user-coupon-text .new-get {
+  margin-top: 60rpx;
+}
+.new-user-coupon .new-user-coupon-in .new-user-coupon-text .new-know {
+  margin-top: 20rpx;
+  display: inline-block;
+  color: #400e0e;
+  background-color: #ffe135;
+  border-radius: 70rpx;
+  width: 384rpx;
+}
+.new-user-coupon .close {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 40%);
+}
+.new-user-coupon .close:before {
+  font-size: 60rpx;
+}
+.small {
+  height: 0rpx;
+  overflow: hidden;
+}

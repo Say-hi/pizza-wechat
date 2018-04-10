@@ -1,0 +1,68 @@
+.tab {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+}
+.tab view {
+  flex: 1;
+  height: 100%;
+  text-align: center;
+}
+.tab .show {
+  border-bottom: 1rpx solid #f30;
+}
+.order {
+  padding: 20rpx;
+  border-top: 20rpx solid #f7f7f7;
+}
+.order .o-t {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.order .o-m {
+  height: 80rpx;
+}
+.order .o-m text {
+  border: 1rpx solid #f30;
+  padding: 10rpx 30rpx;
+}
+.order .o-price {
+  text-align: right;
+}
+.order .o-btn {
+  display: flex;
+  padding: 20rpx;
+  justify-content: flex-end;
+}
+.order .o-btn view {
+  border: 1rpx solid #f7f7f7;
+  padding: 14rpx 20rpx;
+  border-radius: 8rpx;
+  margin-left: 20rpx;
+}
+.order .o-btn view.cfff {
+  background-color: #f30;
+  border-color: #f30;
+}
+.goods {
+  display: flex;
+  align-items: center;
+  background-color: #f7f7f7;
+  padding-right: 20rpx;
+  margin-bottom: 20rpx;
+}
+.goods image {
+  width: 140rpx;
+  height: 140rpx;
+  margin-right: 30rpx;
+}
+.goods .g-i {
+  flex: 1;
+}
+.goods .g-b {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

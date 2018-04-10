@@ -1,0 +1,18 @@
+.mainBg {
+  background-color: #f30;
+}
+.tab-bg {
+  background-color: #f7f7f7;
+}
+.main-text-color {
+  color: #f30;
+}
+.c333 {
+  color: #333;
+}
+.c666 {
+  color: #666;
+}
+.cfff {
+  color: #fff;
+}

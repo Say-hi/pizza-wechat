@@ -1,0 +1,50 @@
+<view class="user-info pr">
+  <image src="../../images/user_bg.png"></image>
+  <view class="user-info-in">
+    <view class="user-info-in-bottom">
+      <view>
+        <text class="f30 fw7 cfff">1234</text>
+        <text class="f22" style="color: #EBCDC5;">当前积分</text>
+      </view>
+    </view>
+    <view catchtap="show" class="f22 iconfont icon-jifen" style="color: #ececec;">积分规则</view>
+  </view>
+</view>
+<view class="tac f24 c666 new-title lh80">积分明细</view>
+<view class="score-detail-wrap">
+  <view class="score-detail bd1" wx:for="123" wx:key="*4">
+    <view>
+      <view class="f28 c333">消费</view>
+      <view class="f22 c999">2018-03-24 12:22:23</view>
+    </view>
+    <view class="f28 c333" style="color: {{ 1 ? '#f30' : '' }}">-30</view>
+  </view>
+</view>
+<!--积分规则-->
+<view wx:if="{{ show }}" class="new-user-coupon {{ small ? 'small' : '' }}">
+  <view class="new-user-coupon-in">
+    <view class="new-user-coupon-text">
+      <view class="f30 c333 new-title tac lh80">积分规则</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <!--<view class="tac">-->
+      <view catchtap="close" class="tac f30 lh70 fw7 new-know">确定</view>
+      <!--</view>-->
+      <view catchtap="close" class="close iconfont icon-guanbi cfff"></view>
+    </view>
+  </view>
+</view>
+

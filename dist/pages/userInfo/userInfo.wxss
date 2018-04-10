@@ -1,0 +1,16 @@
+page {
+  background-color: #f7f7f7;
+}
+view {
+  background-color: #fff;
+  display: flex;
+  padding: 30rpx;
+  justify-content: space-between;
+  align-items: center;
+}
+view:nth-child(1) {
+  margin-top: 40rpx;
+}
+.arrow {
+  margin-top: 40rpx;
+}
