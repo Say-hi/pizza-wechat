@@ -1,0 +1,16 @@
+<form bindsubmit="confirm">
+  <view class="bd1">
+    <text class="iconfont icon-shouji"></text>
+    <input type="number" maxlength="11" name="phone" placeholder="请输入手机号"/>
+  </view>
+  <view class="bd1">
+    <text class="iconfont icon-yanzhengma"></text>
+    <input name="code" placeholder="请输入验证码"/>
+    <button data-type="code" disabled="{{ disabled }}" class="f30 cfff send-code" formType="submit">{{ text }}</button>
+  </view>
+  <button data-type="confirm" class="f30 lh90 fw7 cfff confirm-btn" formType="submit">确定</button>
+</form>
+
+        <!--错误弹窗-->
+<import src="../template/template"></import>
+<template wx:if="{{ toast.show }}" is="showToast" data="{{ ...toast }}"></template>

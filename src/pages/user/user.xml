@@ -1,0 +1,52 @@
+<view class="user-info pr">
+  <image src="../../images/user_bg.png"></image>
+  <view class="user-info-in">
+    <view class="user-info-in-top">
+      <image class="br" src="{{ img }}"></image>
+      <view>
+        <view>
+          <text class="cfff f28">一九九一</text><text class="level f20">lv.0</text>
+        </view>
+        <view><text class="cfff f24 fw7">您还不是会员</text></view>
+      </view>
+    </view>
+    <view class="user-info-in-bottom">
+      <navigator url="../score/score">
+        <view>
+          <text class="f30 fw7 cfff">1234</text>
+          <text class="f20" style="color: #EBCDC5;">积分</text>
+        </view>
+      </navigator>
+      <navigator url="../money/money">
+        <view>
+          <text class="f30 fw7 cfff">1234</text>
+          <text class="f20" style="color: #EBCDC5;">余额</text>
+        </view>
+      </navigator>
+    </view>
+  </view>
+</view>
+<view class="tab-bg" wx:if="{{ phone }}">
+  <view class="user-phone lh70">
+    <text class="f24 c333 iconfont icon-shouji">立刻绑定手机号成为会员</text>
+    <text class="f24 main-text-color bangding lh45">立即绑定</text>
+  </view>
+</view>
+<view class="user-middle {{ !phone ? 'user-middle-top' : '' }}">
+  <navigator url="../invite/invite">
+    <view class="iconfont icon-liwu f26 c333">邀请有奖</view>
+  </navigator>
+  <navigator url="../order/order">
+    <view class="iconfont icon-dingdan f26 c333">我的订单</view>
+  </navigator>
+</view>
+<view class="user-middle user-middle-two">
+  <navigator url="../coupon/coupon">
+    <view class="iconfont icon-swticonyouhuiquanwenzi f26 c333">优惠卷<view class="f20 cfff br">2</view></view>
+  </navigator>
+  <navigator url="../userInfo/userInfo">
+    <view class="iconfont icon-zhanghuziliao f26 c333">我的资料</view>
+  </navigator>
+  <view catchtap="call" class="iconfont icon-dianhua1 f26 c333">客服电话</view>
+</view>
+<view class="tac f24 bottom">人马科技提供技术服务</view>

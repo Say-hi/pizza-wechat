@@ -1,0 +1,30 @@
+@import "../../common/variable";
+page {
+  background-color: @tabBgColor;
+}
+
+.bd1 {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  height: 110rpx;
+  padding: 0 20rpx;
+  &:nth-child(1) {
+    border-top: 1rpx solid #ccc;
+  }
+  .iconfont {
+    margin-right: 20rpx;
+    &:before {
+      font-size: 40rpx;
+    }
+  }
+  .send-code {
+    padding: 0 8rpx;
+    background-color: @mainBackgroundColor;
+  }
+}
+
+.confirm-btn {
+  background-color: @mainBackgroundColor;
+  margin: 20rpx;
+}

@@ -1,0 +1,67 @@
+<view class="time iconfont icon-iconfontzhizuobiaozhun0261">
+  <view class="f32 c666 lh70">交易成功</view>
+</view>
+
+<view class="goods-w">
+  <view class="iconfont icon-dianpu lh70 f28 c333">迷迭香披萨</view>
+  <view wx:for="12" class="goods">
+    <image src="{{ img }}"></image>
+    <view class="g-i">
+      <view class="f30 c333">超级好吃的榴莲披萨</view>
+      <view class="f24 c999">规格： 10寸</view>
+      <view class="g-b">
+        <view class="f30 c333">
+          <text class="f24">￥</text>88.00
+        </view>
+        <view class="f24 c999">×2</view>
+      </view>
+    </view>
+  </view>
+  <view class="g-d bd1 lh80 f24">
+    <view class="c333 fw7">配送费</view>
+    <view><text>￥</text>123</view>
+  </view>
+  <view class="g-d bd1 lh80 f24">
+    <view class="c333 fw7">优惠卷</view>
+    <view class="f24 c999">未使用优惠卷</view>
+  </view>
+  <view class="g-d bd1 lh80 f24">
+    <view class="c333 fw7">预计送达时间</view>
+    <view>2017-02-02 12:30</view>
+  </view>
+  <view class="g-d bd1 lh80">
+    <view>　</view>
+    <view>
+      <text class="f24">小计:<text class="f28 c666">￥165.5</text></text>
+    </view>
+  </view>
+  <view catchtap="call" class="iconfont icon-dianhua tac f30 c333 lh70">联系商家</view>
+</view>
+<view class="address">
+  <!--<image mode="widthFix" src="../../images/add_address.png"></image>-->
+  <view class="address-s">
+    <view class="a-s-t">
+      <text class="f26 c666">收货人: {{ addressInfo.userName }}</text>
+      <text class="f26 c666">{{ addressInfo.telNumber }}</text>
+    </view>
+    <view class="f26 c666">
+      收货地址: {{ addressInfo.provinceName }}{{ addressInfo.cityName }}{{ addressInfo.countyName }}{{ addressInfo.detailInfo }}
+    </view>
+  </view>
+  <!--<view wx:if="{{ needSetting }}" class="open-setting">-->
+    <!--<button catchtap="openSetting">开启授权</button>-->
+  <!--</view>-->
+</view>
+<view class="f-b">
+  <text class="f26 lh60 c999"><text class="c666">订单编号:　</text>6546546464</text>
+  <text class="f26 lh60 c999"><text class="c666">创建时间:　</text>6546546464</text>
+  <text class="f26 lh60 c999"><text class="c666">付款时间:　</text>6546546464</text>
+</view>
+
+
+
+
+
+        <!--错误弹窗-->
+<import src="../template/template"></import>
+<template wx:if="{{ toast.show }}" is="showToast" data="{{ ...toast }}"></template>

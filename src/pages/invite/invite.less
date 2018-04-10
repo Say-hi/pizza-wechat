@@ -1,0 +1,64 @@
+page {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bg {
+  width: 100%;
+  height: 100%;
+}
+
+.btn {
+  position: fixed;
+  bottom: 200rpx;
+  left: 50%;
+  width: 471rpx;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  &:after {
+    border: none;
+  }
+  image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.new-title {
+  margin-top: 40rpx;
+  position: fixed;
+  bottom: 220rpx;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @width: 180rpx;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-140%, -50%);
+    width: @width;
+    height: 2rpx;
+    background-color: #fff;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: @width;
+    transform: translate(140%, -50%);
+    height: 2rpx;
+    background-color: #fff;
+  }
+}
+
+scroll-view {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0;
+  height: 240rpx;
+}

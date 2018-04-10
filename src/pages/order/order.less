@@ -1,0 +1,72 @@
+@import "../../common/variable";
+
+.tab {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+  view {
+    flex: 1;
+    height: 100%;
+    text-align: center;
+  }
+  .show {
+    border-bottom: 1rpx solid @mainBackgroundColor;
+  }
+}
+
+.order {
+  padding: 20rpx;
+  border-top: 20rpx solid @tabBgColor;
+  .o-t {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .o-m {
+    height: 80rpx;
+    text {
+      border: 1rpx solid @mainBackgroundColor;
+      padding: 10rpx 30rpx;
+    }
+  }
+  .o-price {
+    text-align: right;
+  }
+  .o-btn {
+    display: flex;
+    padding: 20rpx;
+    justify-content: flex-end;
+    view {
+      border: 1rpx solid @tabBgColor;
+      padding: 14rpx 20rpx;
+      border-radius: 8rpx;
+      margin-left: 20rpx;
+    }
+    view.cfff {
+      background-color: @mainBackgroundColor;
+      border-color: @mainBackgroundColor;
+    }
+  }
+}
+
+.goods {
+  display: flex;
+  align-items: center;
+  background-color: @tabBgColor;
+  padding-right: 20rpx;
+  margin-bottom: 20rpx;
+  image {
+    width: 140rpx;
+    height: 140rpx;
+    margin-right: 30rpx;
+  }
+  .g-i {
+    flex: 1;
+  }
+  .g-b {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

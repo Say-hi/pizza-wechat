@@ -1,0 +1,47 @@
+@import "../../common/variable";
+@import "../score/score";
+
+.user-info {
+  border-bottom: 70rpx solid @tabBgColor;
+  background-color: @tabBgColor;
+  height: inherit;
+}
+.icon-3 {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 634rpx;
+  background: #fff;
+  box-shadow: 4rpx 4rpx 20rpx 2rpx #e1e1e1;
+  &:before {
+    margin-right: 20rpx;
+    font-size: 40rpx;
+    vertical-align: middle;
+  }
+}
+
+.mask {
+  input {
+    text-align: center;
+    border: none;
+  }
+  .mask-btn {
+    button {
+      flex: 1;
+      padding:0;
+      margin: 0;
+      border-radius: 0;
+      //margin-top: 20rpx;
+      &:after {
+        border: none;
+      }
+      &:nth-child(2) {
+        background-color: @mainBackgroundColor;
+        color: #fff;
+      }
+    }
+  }
+}
+
+

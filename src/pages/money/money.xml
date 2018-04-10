@@ -1,0 +1,36 @@
+<view class="user-info pr">
+  <image src="../../images/user_bg.png"></image>
+  <view class="user-info-in">
+    <view class="user-info-in-bottom">
+      <view>
+        <text class="f30 fw7 cfff iconfont icon-qiandai">1234</text>
+        <text class="f22" style="color: #EBCDC5;">当前余额</text>
+      </view>
+    </view>
+    <view catchtap="show" class="f30 tac main-text-color iconfont icon-3 lh90">充值</view>
+  </view>
+</view>
+<view class="tac f24 c666 new-title lh80">交易流水</view>
+<view class="score-detail-wrap">
+  <view class="score-detail bd1" wx:for="123" wx:key="*4">
+    <view>
+      <view class="f28 c333">消费</view>
+      <view class="f22 c999">2018-03-24 12:22:23</view>
+    </view>
+    <view class="f28" style="color: {{ 1 ? '#f30' : '#3c0' }}">-30</view>
+  </view>
+</view>
+
+<view class="mask" wx:if="{{ show }}">
+  <view class="mask-in">
+    <view class="mask-title tac lh70">充值</view>
+    <form bindsubmit="charge">
+      <input name="money" placeholder="输入充值金额" type="number"/>
+      <view class="tac main-text-color f22 lh50">充100送50</view>
+      <view class="mask-btn">
+        <button catchtap="show">取消</button>
+        <button formType="submit">确认</button>
+      </view>
+    </form>
+  </view>
+</view>

@@ -1,0 +1,196 @@
+@import "../user/user";
+@import "../../common/variable";
+page {
+  background-color: #fff;
+}
+.user-info {
+  padding: 0;
+  height: 342rpx;
+  .user-info-in-bottom {
+    .f30 {
+      font-size: 80rpx;
+    }
+  }
+  .icon-jifen {
+    position: absolute;
+    bottom: 40rpx;
+    right: 20rpx;
+    &:before {
+      margin-right: 20rpx;
+    }
+  }
+}
+
+.new-title {
+  position: relative;
+  background-color: @tabBgColor;
+  @width: 100rpx;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-180%, -50%);
+    width: @width;
+    height: 2rpx;
+    background-color: #eaeaea;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: @width;
+    transform: translate(180%, -50%);
+    height: 2rpx;
+    background-color: #eaeaea;
+  }
+}
+
+.score-detail-wrap {
+  padding: 0 30rpx;
+  .score-detail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100rpx;
+  }
+}
+
+.new-user-coupon {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  transition: all .5s;
+  .new-user-coupon-in {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 564rpx;
+    min-height: 434rpx;
+    border-radius: 20rpx;
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+    image {
+      width: 504rpx;
+      height: 720rpx;
+    }
+    .new-user-coupon-text {
+      padding-bottom: 80rpx;
+      //position: absolute;
+      //top: 0;
+      //left: 0;
+      width: 100%;
+      height: 100%;
+      .new-title {
+        //margin-top: 40rpx;
+        position: relative;
+        background-color: #fff;
+        @width: 100rpx;
+        &:before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-180%, -50%);
+          width: @width;
+          height: 2rpx;
+          background-color: #fff;
+        }
+        &:after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: 50%;
+          width: @width;
+          transform: translate(180%, -50%);
+          height: 2rpx;
+          background-color: #fff;
+        }
+      }
+      .coupon {
+        margin-top: 40rpx;
+        position: relative;
+        transform: translateX(6%);
+        width: 440rpx;
+        min-height: 120rpx;
+        background-color: #fff;
+        display: flex;
+        padding: 10rpx;
+        color: #fff;
+        .c-left {
+          //position: relative;
+          padding: 10rpx;
+          border-radius: 10rpx;
+          min-width: 100rpx;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          background: linear-gradient(90deg, #ff3401, #ff3e0e);
+          @width: 15rpx;
+          @height: 15rpx;
+          position: relative;
+          &:after {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            transform: translate(50%, 50%);
+            content: '';
+            height: @height;
+            width: @width;
+            background-color: #fff;
+            border-radius: 50%;
+          }
+          &:before {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(50%, -50%);
+            height: @height;
+            width: @width;
+            background-color: #fff;
+            content: '';
+            border-radius: 50%;
+          }
+        }
+        .c-right {
+          padding: 10rpx;
+          flex: 1;
+          border-radius: 10rpx;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding-left: 15rpx;
+          background: linear-gradient(90deg, #ff3e0e, #ff7305);
+        }
+      }
+      .new-know {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: @tabBgColor;
+      }
+    }
+  }
+  .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    &:before {
+      font-size: 40rpx;
+      color: #000;
+      background-color: #fff;
+      border-radius: 50%;
+    }
+  }
+}
+.small {
+  width: 0rpx;
+  height: 0rpx;
+  overflow: hidden;
+}
