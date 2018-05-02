@@ -221,11 +221,12 @@ App({
       // mask: true
     });
     wx.request({
-      url: obj.url || useUrl.login,
+      url: obj.url || useUrl.user,
       method: obj.method || 'POST',
       data: obj.data || {},
       header: {
-        'content-type': obj.header || 'application/x-www-form-urlencoded'
+        // 'content-type': obj.header || 'application/x-www-form-urlencoded'
+        'content-type': obj.header || 'application/json'
       },
       success: obj.success || function () {
         console.log('未传入success回调函数');
@@ -236,7 +237,7 @@ App({
       complete: obj.complete || function (res) {
         // console.log(res)
         // sessionId 失效
-        if (res.data.code === 401) {
+        if (res.data.code === '000') {
           setTimeout(function () {
             if (!that.gs()) {
               var page = getCurrentPages();
@@ -246,16 +247,19 @@ App({
                     wx.getUserInfo({
                       lang: 'zh_CN',
                       success: function success(res2) {
+                        console.log(res2);
                         that.wxrequest({
                           url: useUrl.login,
                           data: {
                             code: res.code,
-                            iv: res2.iv,
-                            encryptedData: res2.encryptedData
+                            res2: res2
+                            // iv: res2.iv,
+                            // encryptedData: res2.encryptedData
                           },
                           success: function success(res3) {
                             console.log(1);
-                            wx.setStorageSync('session_key', res3.data.data.session_key);
+                            wx.setStorageSync('session_key', res3.data.data.session3rd);
+                            wx.setStorageSync('shop', res.data.data);
                             page[page.length - 1 >= 0 ? page.length - 1 : 0].onLoad(page[page.length - 1 >= 0 ? page.length - 1 : 0].options);
                           }
                         });
@@ -284,13 +288,15 @@ App({
                           url: useUrl.login,
                           data: {
                             code: res.code,
-                            iv: res2.iv,
-                            encryptedData: res2.encryptedData
+                            res2: res2
+                            // iv: res2.iv,
+                            // encryptedData: res2.encryptedData
                           },
                           success: function success(res3) {
                             console.log(2);
-                            wx.setStorageSync('session_key', res3.data.data.session_key);
-                            obj.data.session_key = that.gs();
+                            wx.setStorageSync('session_key', res3.data.data.session3rd);
+                            wx.setStorageSync('shop', res.data.data);
+                            obj.data.session3rd = that.gs();
                             that.wxrequest(obj);
                           }
                         });
@@ -320,14 +326,14 @@ App({
     var that = this;
     if (wx.getStorageSync('session_key')) {
       var checkObj = {
-        url: useUrl.indexApplicationLists,
+        url: useUrl.user,
         data: {
-          session_key: wx.getStorageSync('session_key')
+          session3rd: wx.getStorageSync('session_key')
         },
         success: function success(res) {
           wx.hideLoading();
           // session失效
-          if (res.data.code === 401) {
+          if (res.data.code === '000') {
             console.log('session_key失效');
             // 无条件获取登陆code
             wx.login({
@@ -338,26 +344,37 @@ App({
                 var obj = {
                   success: function success(data) {
                     wx.setStorageSync('userInfo', data.userInfo);
-                    var iv = data.iv;
-                    var encryptedData = data.encryptedData;
+                    // let iv = data.iv
+                    // let encryptedData = data.encryptedData
                     var recommendId = '';
                     if (params) {
                       recommendId: params.id;
                     }
+                    // let res2 = []
+                    // for (let i in data.userInfo) {
+                    //   // console.log(i)
+                    //   let obj = {}
+                    //   obj[i] = data.userInfo[i]
+                    //   res2.push(obj)
+                    // }
                     // 获取session_key
                     var objs = {
                       url: useUrl.login,
                       data: {
-                        recommend_id: recommendId || 0,
+                        pid: recommendId || 1,
                         code: code,
-                        iv: iv,
-                        encryptedData: encryptedData
+                        res2: data
+                        // iv: iv,
+                        // encryptedData: encryptedData
                       },
+                      header: 'application/json',
                       success: function success(res) {
                         // let session_key = 'akljgaajgoehageajnafe'
                         // console.log(res)
-                        wx.setStorageSync('session_key', res.data.data.session_key);
+                        wx.setStorageSync('session_key', res.data.data.session3rd);
+                        wx.setStorageSync('shop', res.data.data);
                         // console.log(session)
+                        // if (loginSuccess) {
                         if (loginSuccess) {
                           loginSuccess(params);
                         }
@@ -388,6 +405,7 @@ App({
       };
       that.wxrequest(checkObj);
     } else {
+      console.log('无条件获取登陆code');
       // 无条件获取登陆code
       wx.login({
         success: function success(res) {
@@ -397,25 +415,37 @@ App({
           var obj = {
             success: function success(data) {
               wx.setStorageSync('userInfo', data.userInfo);
-              var iv = data.iv;
-              var encryptedData = data.encryptedData;
+              // let iv = data.iv
+              // let encryptedData = data.encryptedData
               var recommendId = '';
               if (params) {
                 recommendId: params.id;
               }
               // 获取session_key
+              // console.log(data.userInfo)
+              // let res2 = []
+              // for (let i in data.userInfo) {
+              //   // console.log(i)
+              //   let obj = {}
+              //   obj[i] = data.userInfo[i]
+              //   res2.push(obj)
+              // }
+              // console.log(res2)
               var objs = {
                 url: useUrl.login,
                 data: {
-                  recommend_id: recommendId || 0,
+                  pid: recommendId || 1,
                   code: code,
-                  iv: iv,
-                  encryptedData: encryptedData
+                  res2: data
+                  // iv,
+                  // encryptedData
                 },
+                header: 'application/json',
                 success: function success(session) {
                   wx.hideLoading();
                   // let s = 'DUGufWMOkMIolSIXLajTvCEvXAYQZwSpnafUVlSagdNEReVSRDAECzwEVAtFbPWg'
-                  wx.setStorageSync('session_key', session.data.data.session_key);
+                  wx.setStorageSync('session_key', session.data.data.session3rd);
+                  wx.setStorageSync('shop', session.data.data);
                   // wx.setStorageSync('session_key', s)
                   if (loginSuccess) {
                     loginSuccess(params);

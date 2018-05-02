@@ -5,6 +5,11 @@ page {
 }
 
 .car-t {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
   padding: 0 20rpx;
   background-color: #fff;
   display: flex;
@@ -51,10 +56,11 @@ page {
     display: flex;
     align-items: center;
     margin-right: 20rpx;
+    @lengtht: 50rpx;
     .order-btn, .order-num {
-      width: 44rpx;
-      height: 44rpx;
-      line-height: 44rpx;
+      width: @lengtht;
+      height: @lengtht;
+      line-height: @lengtht - 5;
       text-align: center;
       border-radius: 50%;
       background-color: @mainBackgroundColor;
@@ -150,4 +156,8 @@ page {
   height: 100%;
   bottom: 0;
   left: 0;
+}
+
+.zw {
+  height: 88rpx;
 }

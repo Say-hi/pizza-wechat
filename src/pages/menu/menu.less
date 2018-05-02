@@ -126,10 +126,11 @@ page {
     .m-l-r {
       display: flex;
       align-items: center;
+      @lengtht: 50rpx;
       .order-btn, .order-num {
-        width: 44rpx;
-        height: 44rpx;
-        line-height: 44rpx;
+        width: @lengtht;
+        height: @lengtht;
+        line-height: @lengtht - 5;
         text-align: center;
         border-radius: 50%;
         background-color: @mainBackgroundColor;
@@ -247,10 +248,11 @@ page {
     display: flex;
     align-items: center;
   }
+  @length: 44rpx;
   .order-btn, .order-num {
-    width: 44rpx;
-    height: 44rpx;
-    line-height: 44rpx;
+    width: @length;
+    height: @length;
+    line-height: @length;
     text-align: center;
     border-radius: 50%;
     background-color: @mainBackgroundColor;

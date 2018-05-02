@@ -42,8 +42,7 @@ Page({
         l: '营业时间',
         r: '8:00-2:00'
       }
-    ],
-    shopIntroduce: '广州市天河区车陂龙口大街1号楼广州市天河区车陂龙口大街1号楼广州市天河区车陂龙口大街1号楼广州市天河区车陂龙口大街1号楼'
+    ]
   },
   // 关闭新人礼包
   close () {
@@ -61,10 +60,23 @@ Page({
   calls () {
     app.call(this.data.shopInfo[1].r)
   },
+  setShopInfo () {
+    let shops = app.gs('shop')
+    this.data.shopInfo[0].r = shops.shop.address
+    this.data.shopInfo[1].r = shops.shop.tel
+    this.data.shopInfo[2].r = shops.shop.work_time
+    this.setData({
+      shopInfo: this.data.shopInfo,
+      shopIntroduce: shops.shop.content,
+      bannerArr: shops.img,
+      newcoupon: shops.coupon
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
+    app.wxlogin(this.setShopInfo, '')
     // console.dir(app.data)
   },
   /**

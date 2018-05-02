@@ -1,12 +1,12 @@
 <swiper autoplay indicator-dots circular indicator-color="{{ indicatorColor }}" indicator-active-color="{{ indicatorActiveColor }}" class="banner">
   <swiper-item  wx:for="{{ bannerArr }}" wx:key="*1">
-    <image mode="widthFix" src="{{ item.img }}"></image>
+    <image mode="widthFix" src="{{ item.src }}"></image>
   </swiper-item>
 </swiper>
 
 <swiper indicator-dots circular indicator-color="{{ indicatorColor2 }}" indicator-active-color="{{ indicatorActiveColor2 }}" class="banner2">
   <swiper-item  wx:for="{{ bannerArr }}" wx:key="*1">
-    <image src="{{ item.img }}"></image>
+    <image src="{{ item.src }}"></image>
   </swiper-item>
 </swiper>
 
@@ -19,37 +19,23 @@
   <text class="c333">{{ shopIntroduce }}</text>
 </view>
 <!--新用户优惠卷-->
-<view wx:if="{{ show }}" class="new-user-coupon {{ small ? 'small' : '' }}">
+<view wx:if="{{ newcoupon }}" class="new-user-coupon {{ small ? 'small' : '' }}">
   <view class="new-user-coupon-in">
     <image src="../../images/newUser.png"></image>
     <view class="new-user-coupon-text">
       <view class="f34 cfff new-title tac lh80">新人礼包</view>
-      <view class="coupon">
+      <view wx:for="{{ newcoupon }}" wx:key="*345" class="coupon">
         <!--左侧-->
         <view class="c-left tac">
           <view>
-            <text class="f20">￥</text><text class="f30">10</text>
+            <text class="f20">￥</text><text class="f30">{{ item.balance }}</text>
           </view>
-          <view class="f20">满20元使用</view>
+          <view class="f20">满{{ item.use_price }}元使用</view>
         </view>
         <!--右侧-->
         <view class="c-right">
-          <view class="f30">小程序10元优惠卷</view>
-          <view class="f20">有效期30天</view>
-        </view>
-      </view>
-      <view class="coupon">
-        <!--左侧-->
-        <view class="c-left tac">
-          <view>
-            <text class="f20">￥</text><text class="f30">10</text>
-          </view>
-          <view class="f20">满20元使用</view>
-        </view>
-        <!--右侧-->
-        <view class="c-right">
-          <view class="f30">小程序10元优惠卷</view>
-          <view class="f20">有效期30天</view>
+          <view class="f30 ell1">{{ item.c_name }}</view>
+          <view class="f20">有效期{{ item.day }}天</view>
         </view>
       </view>
       <view class="tac f24 cfff new-get">已放到您的优惠卷卡包</view>

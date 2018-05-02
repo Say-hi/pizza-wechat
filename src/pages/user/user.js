@@ -10,12 +10,35 @@ Page({
     img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
   },
   call () {
-    app.call()
+    app.call(this.data.phone)
+  },
+  getUser () {
+    let that = this
+    app.wxrequest({
+      url: app.getUrl().user,
+      data: {
+        session3rd: app.gs()
+      },
+      success (res) {
+        wx.hideLoading()
+        if (res.data.code === '200') {
+          that.setData({
+            userInfo: res.data.data
+          })
+        } else {
+          app.setToast(that, {content: res.data.msg})
+        }
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
+    this.setData({
+      phone: app.gs('shop').shop.tel
+    })
+    this.getUser()
     // TODO: onLoad
   },
 

@@ -127,9 +127,9 @@ page {
 }
 .menu-list .m-l .m-l-r .order-btn,
 .menu-list .m-l .m-l-r .order-num {
-  width: 44rpx;
-  height: 44rpx;
-  line-height: 44rpx;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 45rpx;
   text-align: center;
   border-radius: 50%;
   background-color: #f30;

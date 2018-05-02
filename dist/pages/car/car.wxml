@@ -6,13 +6,13 @@
   </view>
   <view catchtap="setting" class="f30 c666">{{ editor ? '完成' : '编辑' }}</view>
 </view>
-
+<view class="zw"></view>
 <view wx:for="{{ menuArr }}" wx:key="*21" class="m-l bd1">
   <radio data-index="{{ index }}" catchtap="choose" color="#ff3300;" checked="{{ item.checked }}"></radio>
-  <image src="{{ item.img }}" mode="aspectFill" lazy-load="true" class="m-l-l"></image>
+  <image src="{{ item.src || item.img }}" mode="aspectFill" lazy-load="true" class="m-l-l"></image>
   <view class="m-l-c">
-    <view class="f30 fw7">{{ item.name }}</view>
-    <view class="c999 f22">规格: {{ item.size ? item.size : '标准尺' }}寸</view>
+    <view class="f30 fw7">{{ item.goodsname || item.name }}</view>
+    <view class="c999 f22">规格: {{ item.size ? item.size : '标准尺寸' }}</view>
     <view class="main-text-color f24">￥<text class="f30">{{ item.price }}</text></view>
   </view>
   <view class="m-l-r">
@@ -25,6 +25,7 @@
   </view>
   <view class="f24 cfff del-btn" catchtap="del" data-index="{{ index }}" wx:if="{{ editor }}">删除</view>
 </view>
+<view class="zw"></view>
 
 <view class="m-bottom {{ editor ? 'noNext': '' }} bd1">
   <view class="c999 r-c" catchtap="chooseAll"><radio checked="{{ all }}"></radio><text>全选</text></view>

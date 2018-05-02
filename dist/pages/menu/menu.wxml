@@ -1,78 +1,78 @@
 <view class="tab f30">
-  <view catchtap="chooseTab" data-index="0" class="{{ currentIndex == 0 ? 'show main-text-color' : 'noshow' }}">披萨</view>
-  <view catchtap="chooseTab" data-index="1" class="{{ currentIndex == 1 ? 'show main-text-color' : 'noshow' }}">小食</view>
-  <view catchtap="chooseTab" data-index="2" class="{{ currentIndex == 2 ? 'show main-text-color' : 'noshow' }}">饮料</view>
+    <view data-id="{{ item.t_id }}" wx:for="{{ menuTabArr }}" wx:key="*0978" catchtap="chooseTab" data-index="{{ index }}" class="{{ currentIndex == index ? 'show main-text-color' : 'noshow' }}">{{ item.name }}</view>
+    <!--<view catchtap="chooseTab" data-index="1" class="{{ currentIndex == 1 ? 'show main-text-color' : 'noshow' }}">小食</view>-->
+    <!--<view catchtap="chooseTab" data-index="2" class="{{ currentIndex == 2 ? 'show main-text-color' : 'noshow' }}">饮料</view>-->
 </view>
 <view class="t-zw"></view>
-<scroll-view wx:if="{{ couponArr || couponArr.length > 0 }}" scroll-x class="coupon">
-  <view class="coupon-in" style="width: 100%;">
+<scroll-view wx:if="{{ menuArr.coupon || menuArr.coupon.length > 0 }}" scroll-x class="coupon">
+<view class="coupon-in" style="width: 100%;">
     <!--<view class="c" style="color: #f00;">-->
-    <view wx:for="{{ couponArr }}" wx:key="*12" class="c" style="color: #f6f6f6;">
-      <view class="c-left">
-        <view>
-          <text class="f22">￥</text><text style="font-size: 60rpx;">{{ item.del }}</text>
+    <view wx:for="{{ menuArr.coupon }}" wx:key="*12" class="c" style="color: #f6f6f6;">
+        <view class="c-left">
+            <view>
+                <text class="f22">￥</text><text style="font-size: 60rpx;">{{ item.balance }}</text>
+            </view>
+            <view>优惠卷</view>
         </view>
-        <view>优惠卷</view>
-      </view>
-      <view class="c-right">
-        <view class="f20">满{{ item.need }}减{{ item.del }}</view>
-        <view catchtap="getCoupon" data-id="{{ item.id }}" class="main-text-color f22">立即领取</view>
-      </view>
+        <view class="c-right">
+            <view class="f20 ell1">{{ item.c_name }}</view>
+            <view catchtap="getCoupon" data-id="{{ item.c_id }}" class="main-text-color f22">立即领取</view>
+        </view>
     </view>
-  </view>
+</view>
 </scroll-view>
 
-<scroll-view scroll-y class="menu-list">
-  <view wx:for="{{ menuArr }}" wx:key="*22" class="m-l bd1">
-    <image loazy-load src="{{ item.img }}" mode="aspectFill" lazy-load="true" class="m-l-l"></image>
+<scroll-view wx:if="{{ t_id == outitem.t_id }}" wx:for="{{ menuArr }}" wx:key="*765" wx:for-item="outitem" wx:for-index="outindex" scroll-y class="menu-list">
+<view wx:for="{{ outitem.list }}" wx:key="*22" class="m-l bd1">
+    <image loazy-load src="{{ item.src }}" mode="aspectFill" lazy-load="true" class="m-l-l"></image>
     <view class="m-l-c">
-      <view class="f30 fw7">{{ item.name }}</view>
-      <view class="main-text-color f22"><text class="ico cfff">售</text>{{ item.sale }}份</view>
-      <view class="main-text-color f24">￥<text class="f30">{{ item.price }}</text><text class="f24 c666">/份</text></view>
+        <view class="f30 fw7">{{ item.goodsname }}</view>
+        <view class="main-text-color f22"><text class="ico cfff">售</text>{{ item.sell }}份</view>
+        <view class="main-text-color f24">￥<text class="f30">{{ item.price }}</text><text class="f24 c666">/份</text></view>
     </view>
     <view class="m-l-r">
-      <view class="choose-count" wx:if="{{ !item.sizeArr || item.sizeArr.length < 1 }}">
-        <view catchtap="chooseMenuNum" data-type="del" data-index="{{ index }}" wx:if="{{ item.num >= 1 }}" class="del order-btn cfff">-</view>
-        <view wx:if="{{ item.num >= 1 }}" class="order-num">{{ item.num }}</view>
-        <view catchtap="chooseMenuNum" data-type="add" data-index="{{ index }}" class="add order-btn cfff">+</view>
-      </view>
-      <view catchtap='close' data-index="{{ index }}" class="choose-size f24 cfff" wx:else>选规格</view>
+        <view class="choose-count" wx:if="{{ !item.spec.length }}">
+            <view catchtap="chooseMenuNum" data-type="del" data-index="{{ index }}" wx:if="{{ item.num >= 1 }}" class="del order-btn cfff">-</view>
+            <view wx:if="{{ item.num >= 1 }}" class="order-num">{{ item.num }}</view>
+            <view catchtap="chooseMenuNum" data-type="add" data-index="{{ index }}" class="add order-btn cfff">+</view>
+        </view>
+        <view catchtap='close' data-index="{{ index }}" class="choose-size f24 cfff" wx:else>选规格</view>
     </view>
-  </view>
-  <view class="zw"></view>
+</view>
+<view class="zw"></view>
 </scroll-view>
 
 <view class="m-bottom bd1">
-  <navigator open-type="switchTab" hover-class="none" url="../car/car">
-      <view class="iconfont icon-gouwuche cfff"><text class="f24 cfff" wx:if="{{ allCount > 0 }}">{{ allCount || 0 }}</text></view>
-  </navigator>
-  <view class="m-money">
+<navigator open-type="switchTab" hover-class="none" url="../car/car">
+    <view class="iconfont icon-gouwuche cfff"><text class="f24 cfff" wx:if="{{ allCount > 0 }}">{{ allCount || 0 }}</text></view>
+</navigator>
+<view class="m-money">
     <view class="f24 c333">总价: <text class="main-text-color f40">￥{{ allMoney }}</text></view>
     <view class="f22" style="color: #f60;">满20元起送</view>
-  </view>
-  <view catchtap="confirm" class="f36 cfff confirm tac">确定下单</view>
 </view>
-<!--规格选择-->
+<view catchtap="confirm" class="f36 cfff confirm tac">确定下单</view>
+</view>
+        <!--规格选择-->
 <view wx:if="{{ showSizeChoose }}" class="mask">
-  <view class="mask-in">
-      <view class="mask-title c333 f32 lh60 fw7">选择规格参数<text catchtap="close" class='close'>×</text></view>
-      <view class='f30 c333'>尺寸</view>
-      <view class='size-w'>
-          <text wx:for='{{ menuArr[showIndex].sizeArr }}' catchtap="chooseSize" data-index="{{ index }}" wx:key="*32" class='size f24 {{ sizeIndex == index ? "size-choose" : "" }}'>{{ item.size }}寸</text>
-      </view>
-      <view class='f30 c333 choose-count-w'>
-          <text>数量</text>
-          <view class="choose-count" >
-              <view catchtap="chooseSizeNum" data-type="del" wx:if="{{ sizeNum > 1 }}" class="del order-btn cfff">-</view>
-              <view class="order-num">{{ sizeNum }}</view>
-              <view  catchtap="chooseSizeNum" data-type="add" class="add order-btn cfff">+</view>
-          </view>
-      </view>
-      <view class='m-confirm'>
-          <text style='font-size: 34rpx;'>￥<text style='font-size: 46rpx;'>{{ sizeNum * menuArr[showIndex].sizeArr[sizeIndex].price  }}</text></text><text catchtap="close" data-type="addCar" class='add-car lh56'>添加购物车</text>
-          <!--<text class='buy-now lh56'>立即购买</text>-->
-      </view>
-  </view>
+<view class="mask-in">
+    <view class="mask-title c333 f32 lh60 fw7">选择规格参数<text catchtap="close" data-index="{{ showIndex }}" class='close'>×</text></view>
+    <view class='f30 c333'>尺寸</view>
+    <view class='size-w'>
+        <text wx:for='{{ menuArr[currentIndex].list[showIndex].spec }}' catchtap="chooseSize" data-index="{{ index }}" wx:key="*32" class='size f24 {{ sizeIndex == index ? "size-choose" : "" }}'>{{ item.spec_name }}</text>
+    </view>
+    <view class='f30 c333 choose-count-w'>
+        <text>数量</text>
+        <view class="choose-count" >
+            <view catchtap="chooseSizeNum" data-type="del" wx:if="{{ sizeNum > 1 }}" class="del order-btn cfff">-</view>
+            <view class="order-num">{{ sizeNum }}</view>
+            <view  catchtap="chooseSizeNum" data-type="add" class="add order-btn cfff">+</view>
+        </view>
+    </view>
+    <view class='m-confirm'>
+        <text style='font-size: 34rpx;'>￥<text style='font-size: 46rpx;'>{{ sizeNum * menuArr[currentIndex].list[showIndex].spec[sizeIndex].price  }}</text></text><text catchtap="close" data-index="{{ showIndex }}" data-type="addCar" class='add-car lh56'>添加购物车</text>
+        <!--<text class='buy-now lh56'>立即购买</text>-->
+    </view>
+</view>
 </view>
 
         <!--错误弹窗-->

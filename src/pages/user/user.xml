@@ -2,10 +2,10 @@
   <image src="../../images/user_bg.png"></image>
   <view class="user-info-in">
     <view class="user-info-in-top">
-      <image class="br" src="{{ img }}"></image>
+      <image class="br" src="{{ userInfo.head_img }}"></image>
       <view>
         <view>
-          <text class="cfff f28">一九九一</text><text class="level f20">lv.0</text>
+          <text class="cfff f28">{{ userInfo.nick_name }}</text><text class="level f20">lv.0</text>
         </view>
         <view><text class="cfff f24 fw7">您还不是会员</text></view>
       </view>
@@ -13,24 +13,24 @@
     <view class="user-info-in-bottom">
       <navigator url="../score/score">
         <view>
-          <text class="f30 fw7 cfff">1234</text>
+          <text class="f30 fw7 cfff">{{ userInfo.integra || 0 }}</text>
           <text class="f20" style="color: #EBCDC5;">积分</text>
         </view>
       </navigator>
       <navigator url="../money/money">
         <view>
-          <text class="f30 fw7 cfff">1234</text>
+          <text class="f30 fw7 cfff">{{ userInfo.money }}</text>
           <text class="f20" style="color: #EBCDC5;">余额</text>
         </view>
       </navigator>
     </view>
   </view>
 </view>
-<view class="tab-bg" wx:if="{{ phone }}">
-  <view class="user-phone lh70">
+<view class="tab-bg" wx:if="{{ !userInfo.phone }}">
+  <navigator url="../setPhone/setPhone" class="user-phone lh70">
     <text class="f24 c333 iconfont icon-shouji">立刻绑定手机号成为会员</text>
     <text class="f24 main-text-color bangding lh45">立即绑定</text>
-  </view>
+  </navigator>
 </view>
 <view class="user-middle {{ !phone ? 'user-middle-top' : '' }}">
   <navigator url="../invite/invite">
@@ -49,4 +49,9 @@
   </navigator>
   <view catchtap="call" class="iconfont icon-dianhua1 f26 c333">客服电话</view>
 </view>
+<image mode="widthFix" lazy-load class="address-img" src="{{ img }}"></image>
 <view class="tac f24 bottom">人马科技提供技术服务</view>
+
+        <!--错误弹窗-->
+<import src="../template/template"></import>
+<template wx:if="{{ toast.show }}" is="showToast" data="{{ ...toast }}"></template>

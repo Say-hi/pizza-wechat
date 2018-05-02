@@ -104,3 +104,7 @@ page {
   transform: translateX(-50%);
   color: #ccc;
 }
+.address-img {
+  width: 100%;
+  border-radius: 10rpx;
+}

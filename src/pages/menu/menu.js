@@ -10,87 +10,7 @@ Page({
     currentIndex: 0,
     sizeIndex: 0,
     sizeNum: 1,
-    allMoney: 0,
-    couponArr: [
-      {
-        need: 100,
-        del: 10,
-        id: 12
-      },
-      {
-        need: 100,
-        del: 10,
-        id: 12
-      }
-    ],
-    menuArr: [
-      {
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '超级好吃的榴莲',
-        sale: '888',
-        price: '88.50',
-        id: 1,
-        sizeArr: []
-      },
-      {
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '超级好吃的榴莲',
-        sale: '888',
-        price: '88.50',
-        id: 2,
-        sizeArr: []
-      },
-      {
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '超级好吃的榴莲',
-        sale: '888',
-        price: '88.50',
-        id: 3,
-        sizeArr: [
-          {
-            id: 31,
-            size: 10,
-            price: 110,
-            num: 1
-          },
-          {
-            id: 32,
-            size: 40,
-            price: 13,
-            num: 1
-          }
-        ]
-      },
-      {
-        img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-        name: '超级好吃的榴莲',
-        sale: '888',
-        price: '88.50',
-        id: 4,
-        sizeArr: [
-          {
-            id: 41,
-            size: 10,
-            price: 110,
-            num: 1
-          },
-          {
-            id: 42,
-            size: 40,
-            price: 13,
-            num: 1
-          },
-          {
-            id: 43,
-            size: 50,
-            price: 13,
-            num: 1
-          }
-        ]
-      }
-    ],
-    // showSizeChoose: fasle,
-    src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
+    allMoney: 0
   },
   // 领取优惠卷
   getCoupon (e) {
@@ -100,12 +20,12 @@ Page({
   // 菜单页数量选择
   chooseMenuNum (e) {
     if (e.currentTarget.dataset.type === 'del') {
-      --this.data.menuArr[e.currentTarget.dataset.index].num
+      --this.data.menuArr[this.data.currentIndex].list[e.currentTarget.dataset.index].num
     } else {
-      if (!this.data.menuArr[e.currentTarget.dataset.index].num) {
-        this.data.menuArr[e.currentTarget.dataset.index].num = 1
+      if (!this.data.menuArr[this.data.currentIndex].list[e.currentTarget.dataset.index].num) {
+        this.data.menuArr[this.data.currentIndex].list[e.currentTarget.dataset.index].num = 1
       } else {
-        ++this.data.menuArr[e.currentTarget.dataset.index].num
+        ++this.data.menuArr[this.data.currentIndex].list[e.currentTarget.dataset.index].num
       }
     }
     this.setData({
@@ -126,7 +46,7 @@ Page({
       this.setGoodsStorage(true)
     }
     this.setData({
-      showIndex: e.currentTarget.dataset.index || this.data.showIndex,
+      showIndex: e.currentTarget.dataset.index.toString() || this.data.showIndex,
       showSizeChoose: !this.data.showSizeChoose,
       sizeNum: 1
     })
@@ -136,49 +56,47 @@ Page({
     let that = this
     let goodsStorage = app.gs('goodsStorage') || []
     if (size) { // 单独规格添加
-      // console.log(1)
       if (goodsStorage.length < 1) {
         goodsStorage.push({
-          img: that.data.menuArr[that.data.showIndex].img,
-          name: that.data.menuArr[that.data.showIndex].name,
-          price: that.data.menuArr[that.data.showIndex].sizeArr[that.data.sizeIndex].price,
-          id: that.data.menuArr[that.data.showIndex].sizeArr[that.data.sizeIndex].id,
-          size: that.data.menuArr[that.data.showIndex].sizeArr[that.data.sizeIndex].size,
+          img: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].src,
+          name: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].goodsname,
+          price: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].spec[that.data.sizeIndex].price,
+          id: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].spec[that.data.sizeIndex].s_id || 0,
+          size: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].spec[that.data.sizeIndex].spec_name,
           num: that.data.sizeNum
         })
       } else {
         for (let [i, v] of goodsStorage.entries()) {
-          if (v.id === that.data.menuArr[that.data.showIndex].sizeArr[that.data.sizeIndex].id) { // 如果存在
+          if (v.id === that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].spec[that.data.sizeIndex].s_id) { // 如果存在
             goodsStorage[i] = {
-              img: that.data.menuArr[that.data.showIndex].img,
-              name: that.data.menuArr[that.data.showIndex].name,
-              price: that.data.menuArr[that.data.showIndex].sizeArr[that.data.sizeIndex].price,
-              id: that.data.menuArr[that.data.showIndex].sizeArr[that.data.sizeIndex].id,
-              size: that.data.menuArr[that.data.showIndex].sizeArr[that.data.sizeIndex].size,
+              img: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].src,
+              name: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].goodsname,
+              price: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].spec[that.data.sizeIndex].price,
+              id: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].spec[that.data.sizeIndex].s_id,
+              size: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].spec[that.data.sizeIndex].spec_name,
               num: that.data.sizeNum
             }
             break
           } else if (i === goodsStorage.length - 1) {
             goodsStorage.push({
-              img: that.data.menuArr[that.data.showIndex].img,
-              name: that.data.menuArr[that.data.showIndex].name,
-              price: that.data.menuArr[that.data.showIndex].sizeArr[that.data.sizeIndex].price,
-              id: that.data.menuArr[that.data.showIndex].sizeArr[that.data.sizeIndex].id,
-              size: that.data.menuArr[that.data.showIndex].sizeArr[that.data.sizeIndex].size,
+              img: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].src,
+              name: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].goodsname,
+              price: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].spec[that.data.sizeIndex].price,
+              id: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].spec[that.data.sizeIndex].s_id,
+              size: that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].spec[that.data.sizeIndex].spec_name,
               num: that.data.sizeNum
             })
           }
         }
       }
     } else {
-      // console.log(2)
       // 单独规格选择
-      for (let v of this.data.menuArr) {
-        if (v.sizeArr.length > 1) continue // 有规格的不添加
+      for (let v of this.data.menuArr[this.data.currentIndex].list) {
+        if (v.spec.length >= 1) continue // 有规格的不添加
         if (v.num >= 0) {
           if (goodsStorage.length >= 1) {
             for (let [i, m] of goodsStorage.entries()) {
-              if (m.id === v.id) { // 缓存中存在该项,重新赋值，跳出循环
+              if (m.id === v.g_id || m.g_id === v.g_id) { // 缓存中存在该项,重新赋值，跳出循环
                 goodsStorage[i] = v
                 break
               } else if (i === goodsStorage.length - 1) {
@@ -243,14 +161,43 @@ Page({
   // 顶栏选择
   chooseTab (e) {
     this.setData({
-      currentIndex: e.currentTarget.dataset.index
+      currentIndex: e.currentTarget.dataset.index,
+      t_id: e.currentTarget.dataset.id
+    })
+  },
+  // 获取菜单
+  getMenuData () {
+    let that = this
+    app.wxrequest({
+      url: app.getUrl().menu,
+      data: {
+        session3rd: app.gs()
+      },
+      success (res) {
+        if (res.data.code === '200') {
+          wx.hideLoading()
+          let menuTabArr = []
+          for (let i in res.data.data) {
+            if (res.data.data[i].t_id) {
+              menuTabArr.push({name: res.data.data[i].typename, t_id: res.data.data[i].t_id})
+            }
+          }
+          that.setData({
+            menuArr: res.data.data,
+            t_id: menuTabArr[0].t_id,
+            menuTabArr
+          })
+        } else {
+          app.setToast(that, {content: res.data.msg})
+        }
+      }
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
-    // wx.removeStorageSync('goodsStorage')
+    this.getMenuData()
     // TODO: onLoad
   },
 
@@ -266,36 +213,55 @@ Page({
    */
   onShow () {
     let num = 0
-    for (let v of app.gs('goodsStorage')) {
-      num += parseInt(v.num)
-    }
-    this.calculatorMoney()
-    if (app.gs('goodsStorage')) {
-      if (app.gs('goodsStorage').length >= 1) {
-        for (let v of this.data.menuArr) {
-          for (let g of app.gs('goodsStorage')) {
-            if (g.id === v.id) {
-              v.num = g.num
-              break
-            } else {
-              v.num = 0
+    let timer = ''
+    timer = setTimeout(() => {
+      if (this.data.menuArr) {
+        for (let v of app.gs('goodsStorage')) {
+          num += parseInt(v.num)
+        }
+        this.calculatorMoney()
+        if (app.gs('goodsStorage')) {
+          if (app.gs('goodsStorage').length >= 1) {
+            for (let outv in this.data.menuArr) {
+              if (outv !== 'coupon') {
+                for (let v of this.data.menuArr[outv].list) {
+                  for (let g of app.gs('goodsStorage')) {
+                    if (g.g_id === v.g_id) {
+                      v.num = g.num
+                      break
+                    } else {
+                      v.num = 0
+                    }
+                  }
+                }
+              }
+            }
+          } else {
+            for (let s in this.data.menuArr) {
+              if (s !== 'coupon') {
+                for (let m of this.data.menuArr[s].list) {
+                  m.num = 0
+                }
+              }
+            }
+          }
+        } else {
+          for (let s in this.data.menuArr) {
+            if (s !== 'coupon') {
+              for (let m of this.data.menuArr[s].list) {
+                m.num = 0
+              }
             }
           }
         }
+        this.setData({
+          allCount: num,
+          menuArr: this.data.menuArr
+        })
       } else {
-        for (let s of this.data.menuArr) {
-          s.num = 0
-        }
+        timer()
       }
-    } else {
-      for (let s of this.data.menuArr) {
-        s.num = 0
-      }
-    }
-    this.setData({
-      allCount: num,
-      menuArr: this.data.menuArr
-    })
+    }, 100)
     // TODO: onShow
   },
 
