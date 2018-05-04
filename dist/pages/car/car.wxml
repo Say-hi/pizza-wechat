@@ -1,5 +1,5 @@
 
-<view class="car-t lh85">
+<view wx:if="{{ menuArr.length }}" class="car-t lh85">
   <view catchtap="chooseAll">
     <radio checked="{{ all }}"></radio>
     <text class="f30 c333">全选</text>

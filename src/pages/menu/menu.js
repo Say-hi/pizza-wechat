@@ -35,6 +35,12 @@ Page({
   },
   // 确定下单
   confirm () {
+    if (this.data.allMoney * 1 === 0) return app.setToast(this, {content: '您还没有选择商品咧'})
+    let goodsStorage = app.gs('goodsStorage')
+    for (let v of goodsStorage) {
+      v['checked'] = true
+    }
+    app.su('goodsStorage', goodsStorage)
     wx.navigateTo({
       url: `../submitOrder/submitOrder?money=${this.data.allMoney}`
     })
@@ -96,7 +102,7 @@ Page({
         if (v.num >= 0) {
           if (goodsStorage.length >= 1) {
             for (let [i, m] of goodsStorage.entries()) {
-              if (m.id === v.g_id || m.g_id === v.g_id) { // 缓存中存在该项,重新赋值，跳出循环
+              if (m.id === v.s_id || m.s_id === v.s_id) { // 缓存中存在该项,重新赋值，跳出循环
                 goodsStorage[i] = v
                 break
               } else if (i === goodsStorage.length - 1) {

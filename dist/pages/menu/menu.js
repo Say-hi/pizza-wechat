@@ -41,6 +41,34 @@ Page({
 
   // 确定下单
   confirm: function confirm() {
+    if (this.data.allMoney * 1 === 0) return app.setToast(this, { content: '您还没有选择商品咧' });
+    var goodsStorage = app.gs('goodsStorage');
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = goodsStorage[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var v = _step.value;
+
+        v['checked'] = true;
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+
+    app.su('goodsStorage', goodsStorage);
     wx.navigateTo({
       url: '../submitOrder/submitOrder?money=' + this.data.allMoney
     });
@@ -75,15 +103,15 @@ Page({
           num: that.data.sizeNum
         });
       } else {
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
 
         try {
-          for (var _iterator = goodsStorage.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var _step$value = _slicedToArray(_step.value, 2),
-                i = _step$value[0],
-                v = _step$value[1];
+          for (var _iterator2 = goodsStorage.entries()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var _step2$value = _slicedToArray(_step2.value, 2),
+                i = _step2$value[0],
+                v = _step2$value[1];
 
             if (v.id === that.data.menuArr[that.data.currentIndex].list[that.data.showIndex].spec[that.data.sizeIndex].s_id) {
               // 如果存在
@@ -108,44 +136,44 @@ Page({
             }
           }
         } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
         } finally {
           try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+              _iterator2.return();
             }
           } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
+            if (_didIteratorError2) {
+              throw _iteratorError2;
             }
           }
         }
       }
     } else {
       // 单独规格选择
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
 
       try {
-        for (var _iterator2 = this.data.menuArr[this.data.currentIndex].list[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var v = _step2.value;
+        for (var _iterator3 = this.data.menuArr[this.data.currentIndex].list[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var v = _step3.value;
 
           if (v.spec.length >= 1) continue; // 有规格的不添加
           if (v.num >= 0) {
             if (goodsStorage.length >= 1) {
-              var _iteratorNormalCompletion3 = true;
-              var _didIteratorError3 = false;
-              var _iteratorError3 = undefined;
+              var _iteratorNormalCompletion4 = true;
+              var _didIteratorError4 = false;
+              var _iteratorError4 = undefined;
 
               try {
-                for (var _iterator3 = goodsStorage.entries()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                  var _step3$value = _slicedToArray(_step3.value, 2),
-                      i = _step3$value[0],
-                      m = _step3$value[1];
+                for (var _iterator4 = goodsStorage.entries()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                  var _step4$value = _slicedToArray(_step4.value, 2),
+                      i = _step4$value[0],
+                      m = _step4$value[1];
 
-                  if (m.id === v.g_id || m.g_id === v.g_id) {
+                  if (m.id === v.s_id || m.s_id === v.s_id) {
                     // 缓存中存在该项,重新赋值，跳出循环
                     goodsStorage[i] = v;
                     break;
@@ -154,16 +182,16 @@ Page({
                   }
                 }
               } catch (err) {
-                _didIteratorError3 = true;
-                _iteratorError3 = err;
+                _didIteratorError4 = true;
+                _iteratorError4 = err;
               } finally {
                 try {
-                  if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                    _iterator3.return();
+                  if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                    _iterator4.return();
                   }
                 } finally {
-                  if (_didIteratorError3) {
-                    throw _iteratorError3;
+                  if (_didIteratorError4) {
+                    throw _iteratorError4;
                   }
                 }
               }
@@ -173,30 +201,30 @@ Page({
           }
         }
       } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-            _iterator2.return();
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
           }
         } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
+          if (_didIteratorError3) {
+            throw _iteratorError3;
           }
         }
       }
     }
     var num = 0;
-    var _iteratorNormalCompletion4 = true;
-    var _didIteratorError4 = false;
-    var _iteratorError4 = undefined;
+    var _iteratorNormalCompletion5 = true;
+    var _didIteratorError5 = false;
+    var _iteratorError5 = undefined;
 
     try {
-      for (var _iterator4 = goodsStorage.entries()[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-        var _step4$value = _slicedToArray(_step4.value, 2),
-            i = _step4$value[0],
-            _v = _step4$value[1];
+      for (var _iterator5 = goodsStorage.entries()[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+        var _step5$value = _slicedToArray(_step5.value, 2),
+            i = _step5$value[0],
+            _v = _step5$value[1];
 
         if (_v.num === 0) {
           goodsStorage.splice(i, 1);
@@ -204,16 +232,16 @@ Page({
         num += _v.num;
       }
     } catch (err) {
-      _didIteratorError4 = true;
-      _iteratorError4 = err;
+      _didIteratorError5 = true;
+      _iteratorError5 = err;
     } finally {
       try {
-        if (!_iteratorNormalCompletion4 && _iterator4.return) {
-          _iterator4.return();
+        if (!_iteratorNormalCompletion5 && _iterator5.return) {
+          _iterator5.return();
         }
       } finally {
-        if (_didIteratorError4) {
-          throw _iteratorError4;
+        if (_didIteratorError5) {
+          throw _iteratorError5;
         }
       }
     }
@@ -230,29 +258,29 @@ Page({
   // 计算总价格
   calculatorMoney: function calculatorMoney() {
     var allMoney = 0;
-    var _iteratorNormalCompletion5 = true;
-    var _didIteratorError5 = false;
-    var _iteratorError5 = undefined;
+    var _iteratorNormalCompletion6 = true;
+    var _didIteratorError6 = false;
+    var _iteratorError6 = undefined;
 
     try {
-      for (var _iterator5 = app.gs('goodsStorage')[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-        var v = _step5.value;
+      for (var _iterator6 = app.gs('goodsStorage')[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+        var v = _step6.value;
 
         if (v.num) {
           allMoney += v.num * v.price;
         }
       }
     } catch (err) {
-      _didIteratorError5 = true;
-      _iteratorError5 = err;
+      _didIteratorError6 = true;
+      _iteratorError6 = err;
     } finally {
       try {
-        if (!_iteratorNormalCompletion5 && _iterator5.return) {
-          _iterator5.return();
+        if (!_iteratorNormalCompletion6 && _iterator6.return) {
+          _iterator6.return();
         }
       } finally {
-        if (_didIteratorError5) {
-          throw _iteratorError5;
+        if (_didIteratorError6) {
+          throw _iteratorError6;
         }
       }
     }
@@ -350,27 +378,27 @@ Page({
     var timer = '';
     timer = setTimeout(function () {
       if (_this.data.menuArr) {
-        var _iteratorNormalCompletion6 = true;
-        var _didIteratorError6 = false;
-        var _iteratorError6 = undefined;
+        var _iteratorNormalCompletion7 = true;
+        var _didIteratorError7 = false;
+        var _iteratorError7 = undefined;
 
         try {
-          for (var _iterator6 = app.gs('goodsStorage')[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-            var _v2 = _step6.value;
+          for (var _iterator7 = app.gs('goodsStorage')[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+            var _v2 = _step7.value;
 
             num += parseInt(_v2.num);
           }
         } catch (err) {
-          _didIteratorError6 = true;
-          _iteratorError6 = err;
+          _didIteratorError7 = true;
+          _iteratorError7 = err;
         } finally {
           try {
-            if (!_iteratorNormalCompletion6 && _iterator6.return) {
-              _iterator6.return();
+            if (!_iteratorNormalCompletion7 && _iterator7.return) {
+              _iterator7.return();
             }
           } finally {
-            if (_didIteratorError6) {
-              throw _iteratorError6;
+            if (_didIteratorError7) {
+              throw _iteratorError7;
             }
           }
         }
@@ -380,20 +408,20 @@ Page({
           if (app.gs('goodsStorage').length >= 1) {
             for (var outv in _this.data.menuArr) {
               if (outv !== 'coupon') {
-                var _iteratorNormalCompletion7 = true;
-                var _didIteratorError7 = false;
-                var _iteratorError7 = undefined;
+                var _iteratorNormalCompletion8 = true;
+                var _didIteratorError8 = false;
+                var _iteratorError8 = undefined;
 
                 try {
-                  for (var _iterator7 = _this.data.menuArr[outv].list[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                    var v = _step7.value;
-                    var _iteratorNormalCompletion8 = true;
-                    var _didIteratorError8 = false;
-                    var _iteratorError8 = undefined;
+                  for (var _iterator8 = _this.data.menuArr[outv].list[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+                    var v = _step8.value;
+                    var _iteratorNormalCompletion9 = true;
+                    var _didIteratorError9 = false;
+                    var _iteratorError9 = undefined;
 
                     try {
-                      for (var _iterator8 = app.gs('goodsStorage')[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-                        var g = _step8.value;
+                      for (var _iterator9 = app.gs('goodsStorage')[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+                        var g = _step9.value;
 
                         if (g.g_id === v.g_id) {
                           v.num = g.num;
@@ -403,31 +431,31 @@ Page({
                         }
                       }
                     } catch (err) {
-                      _didIteratorError8 = true;
-                      _iteratorError8 = err;
+                      _didIteratorError9 = true;
+                      _iteratorError9 = err;
                     } finally {
                       try {
-                        if (!_iteratorNormalCompletion8 && _iterator8.return) {
-                          _iterator8.return();
+                        if (!_iteratorNormalCompletion9 && _iterator9.return) {
+                          _iterator9.return();
                         }
                       } finally {
-                        if (_didIteratorError8) {
-                          throw _iteratorError8;
+                        if (_didIteratorError9) {
+                          throw _iteratorError9;
                         }
                       }
                     }
                   }
                 } catch (err) {
-                  _didIteratorError7 = true;
-                  _iteratorError7 = err;
+                  _didIteratorError8 = true;
+                  _iteratorError8 = err;
                 } finally {
                   try {
-                    if (!_iteratorNormalCompletion7 && _iterator7.return) {
-                      _iterator7.return();
+                    if (!_iteratorNormalCompletion8 && _iterator8.return) {
+                      _iterator8.return();
                     }
                   } finally {
-                    if (_didIteratorError7) {
-                      throw _iteratorError7;
+                    if (_didIteratorError8) {
+                      throw _iteratorError8;
                     }
                   }
                 }
@@ -436,27 +464,27 @@ Page({
           } else {
             for (var s in _this.data.menuArr) {
               if (s !== 'coupon') {
-                var _iteratorNormalCompletion9 = true;
-                var _didIteratorError9 = false;
-                var _iteratorError9 = undefined;
+                var _iteratorNormalCompletion10 = true;
+                var _didIteratorError10 = false;
+                var _iteratorError10 = undefined;
 
                 try {
-                  for (var _iterator9 = _this.data.menuArr[s].list[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
-                    var m = _step9.value;
+                  for (var _iterator10 = _this.data.menuArr[s].list[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
+                    var m = _step10.value;
 
                     m.num = 0;
                   }
                 } catch (err) {
-                  _didIteratorError9 = true;
-                  _iteratorError9 = err;
+                  _didIteratorError10 = true;
+                  _iteratorError10 = err;
                 } finally {
                   try {
-                    if (!_iteratorNormalCompletion9 && _iterator9.return) {
-                      _iterator9.return();
+                    if (!_iteratorNormalCompletion10 && _iterator10.return) {
+                      _iterator10.return();
                     }
                   } finally {
-                    if (_didIteratorError9) {
-                      throw _iteratorError9;
+                    if (_didIteratorError10) {
+                      throw _iteratorError10;
                     }
                   }
                 }
@@ -466,27 +494,27 @@ Page({
         } else {
           for (var _s in _this.data.menuArr) {
             if (_s !== 'coupon') {
-              var _iteratorNormalCompletion10 = true;
-              var _didIteratorError10 = false;
-              var _iteratorError10 = undefined;
+              var _iteratorNormalCompletion11 = true;
+              var _didIteratorError11 = false;
+              var _iteratorError11 = undefined;
 
               try {
-                for (var _iterator10 = _this.data.menuArr[_s].list[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
-                  var _m = _step10.value;
+                for (var _iterator11 = _this.data.menuArr[_s].list[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
+                  var _m = _step11.value;
 
                   _m.num = 0;
                 }
               } catch (err) {
-                _didIteratorError10 = true;
-                _iteratorError10 = err;
+                _didIteratorError11 = true;
+                _iteratorError11 = err;
               } finally {
                 try {
-                  if (!_iteratorNormalCompletion10 && _iterator10.return) {
-                    _iterator10.return();
+                  if (!_iteratorNormalCompletion11 && _iterator11.return) {
+                    _iterator11.return();
                   }
                 } finally {
-                  if (_didIteratorError10) {
-                    throw _iteratorError10;
+                  if (_didIteratorError11) {
+                    throw _iteratorError11;
                   }
                 }
               }

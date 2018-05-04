@@ -12,7 +12,7 @@ Page({
     img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
   },
   call: function call() {
-    app.call(this.data.phone);
+    app.call(this.data.userInfo.kefu_tel);
   },
   getUser: function getUser() {
     var that = this;
@@ -33,15 +33,30 @@ Page({
       }
     });
   },
+  getCouponData: function getCouponData() {
+    var that = this;
+    app.wxrequest({
+      url: app.getUrl().mycoupon,
+      data: {
+        session3rd: app.gs()
+      },
+      success: function success(res) {
+        wx.hideLoading();
+        if (res.data.code === '200') {
+          that.setData({
+            couponCount: res.data.data.wsy.length
+          });
+        } else {
+          app.setToast(that, { content: res.data.msg });
+        }
+      }
+    });
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function onLoad() {
-    this.setData({
-      phone: app.gs('shop').shop.tel
-    });
-    this.getUser();
     // TODO: onLoad
   },
 
@@ -58,6 +73,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function onShow() {
+    this.getCouponData();
+    this.getUser();
     // TODO: onShow
   },
 

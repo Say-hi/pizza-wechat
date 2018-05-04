@@ -324,149 +324,149 @@ App({
   // 用户登陆
   wxlogin: function wxlogin(loginSuccess, params) {
     var that = this;
-    if (wx.getStorageSync('session_key')) {
-      var checkObj = {
-        url: useUrl.user,
-        data: {
-          session3rd: wx.getStorageSync('session_key')
-        },
-        success: function success(res) {
-          wx.hideLoading();
-          // session失效
-          if (res.data.code === '000') {
-            console.log('session_key失效');
-            // 无条件获取登陆code
-            wx.login({
-              success: function success(res) {
-                // console.log(res)
-                var code = res.code;
-                // 获取用户信息
-                var obj = {
-                  success: function success(data) {
-                    wx.setStorageSync('userInfo', data.userInfo);
-                    // let iv = data.iv
-                    // let encryptedData = data.encryptedData
-                    var recommendId = '';
-                    if (params) {
-                      recommendId: params.id;
-                    }
-                    // let res2 = []
-                    // for (let i in data.userInfo) {
-                    //   // console.log(i)
-                    //   let obj = {}
-                    //   obj[i] = data.userInfo[i]
-                    //   res2.push(obj)
-                    // }
-                    // 获取session_key
-                    var objs = {
-                      url: useUrl.login,
-                      data: {
-                        pid: recommendId || 1,
-                        code: code,
-                        res2: data
-                        // iv: iv,
-                        // encryptedData: encryptedData
-                      },
-                      header: 'application/json',
-                      success: function success(res) {
-                        // let session_key = 'akljgaajgoehageajnafe'
-                        // console.log(res)
-                        wx.setStorageSync('session_key', res.data.data.session3rd);
-                        wx.setStorageSync('shop', res.data.data);
-                        // console.log(session)
-                        // if (loginSuccess) {
-                        if (loginSuccess) {
-                          loginSuccess(params);
-                        }
-                      }
-                    };
-                    that.wxrequest(objs);
-                  },
-                  fail: function fail(res) {
-                    console.log(res);
-                    wx.showToast({
-                      title: '您未授权小程序,请授权登陆'
-                    });
-                  }
-                };
-                that.getUserInfo(obj);
+    // if (wx.getStorageSync('session_key')) {
+    //   let checkObj = {
+    //     url: useUrl.user,
+    //     data: {
+    //       session3rd: wx.getStorageSync('session_key')
+    //     },
+    //     success (res) {
+    //       wx.hideLoading()
+    //       // session失效
+    //       if (res.data.code === '000') {
+    //         console.log('session_key失效')
+    //         // 无条件获取登陆code
+    //         wx.login({
+    //           success (res) {
+    //             // console.log(res)
+    //             let code = res.code
+    //             // 获取用户信息
+    //             let obj = {
+    //               success (data) {
+    //                 wx.setStorageSync('userInfo', data.userInfo)
+    //                 // let iv = data.iv
+    //                 // let encryptedData = data.encryptedData
+    //                 let recommendId = ''
+    //                 if (params) {
+    //                   recommendId: params.id
+    //                 }
+    //                 // let res2 = []
+    //                 // for (let i in data.userInfo) {
+    //                 //   // console.log(i)
+    //                 //   let obj = {}
+    //                 //   obj[i] = data.userInfo[i]
+    //                 //   res2.push(obj)
+    //                 // }
+    //                 // 获取session_key
+    //                 let objs = {
+    //                   url: useUrl.login,
+    //                   data: {
+    //                     pid: recommendId || 1,
+    //                     code: code,
+    //                     res2: data
+    //                     // iv: iv,
+    //                     // encryptedData: encryptedData
+    //                   },
+    //                   header: 'application/json',
+    //                   success (res) {
+    //                     // let session_key = 'akljgaajgoehageajnafe'
+    //                     // console.log(res)
+    //                     wx.setStorageSync('session_key', res.data.data.session3rd)
+    //                     wx.setStorageSync('shop', res.data.data)
+    //                     // console.log(session)
+    //                     // if (loginSuccess) {
+    //                     if (loginSuccess) {
+    //                       loginSuccess(params)
+    //                     }
+    //                   }
+    //                 }
+    //                 that.wxrequest(objs)
+    //               },
+    //               fail (res) {
+    //                 console.log(res)
+    //                 wx.showToast({
+    //                   title: '您未授权小程序,请授权登陆'
+    //                 })
+    //               }
+    //             }
+    //             that.getUserInfo(obj)
+    //           },
+    //           fail (err) {
+    //             console.log('loginError' + err)
+    //           }
+    //         })
+    //       } else {
+    //         console.log('session_key有效')
+    //         if (loginSuccess) {
+    //           loginSuccess(params)
+    //         }
+    //       }
+    //     }
+    //   }
+    //   that.wxrequest(checkObj)
+    // } else {
+    console.log('无条件获取登陆code');
+    // 无条件获取登陆code
+    wx.login({
+      success: function success(res) {
+        // console.log(res)
+        var code = res.code;
+        // 获取用户信息
+        var obj = {
+          success: function success(data) {
+            wx.setStorageSync('userInfo', data.userInfo);
+            // let iv = data.iv
+            // let encryptedData = data.encryptedData
+            var recommendId = '';
+            if (params) {
+              recommendId: params.id;
+            }
+            // 获取session_key
+            // console.log(data.userInfo)
+            // let res2 = []
+            // for (let i in data.userInfo) {
+            //   // console.log(i)
+            //   let obj = {}
+            //   obj[i] = data.userInfo[i]
+            //   res2.push(obj)
+            // }
+            // console.log(res2)
+            var objs = {
+              url: useUrl.login,
+              data: {
+                pid: recommendId || 1,
+                code: code,
+                res2: data
+                // iv,
+                // encryptedData
               },
-              fail: function fail(err) {
-                console.log('loginError' + err);
-              }
-            });
-          } else {
-            console.log('session_key有效');
-            if (loginSuccess) {
-              loginSuccess(params);
-            }
-          }
-        }
-      };
-      that.wxrequest(checkObj);
-    } else {
-      console.log('无条件获取登陆code');
-      // 无条件获取登陆code
-      wx.login({
-        success: function success(res) {
-          // console.log(res)
-          var code = res.code;
-          // 获取用户信息
-          var obj = {
-            success: function success(data) {
-              wx.setStorageSync('userInfo', data.userInfo);
-              // let iv = data.iv
-              // let encryptedData = data.encryptedData
-              var recommendId = '';
-              if (params) {
-                recommendId: params.id;
-              }
-              // 获取session_key
-              // console.log(data.userInfo)
-              // let res2 = []
-              // for (let i in data.userInfo) {
-              //   // console.log(i)
-              //   let obj = {}
-              //   obj[i] = data.userInfo[i]
-              //   res2.push(obj)
-              // }
-              // console.log(res2)
-              var objs = {
-                url: useUrl.login,
-                data: {
-                  pid: recommendId || 1,
-                  code: code,
-                  res2: data
-                  // iv,
-                  // encryptedData
-                },
-                header: 'application/json',
-                success: function success(session) {
-                  wx.hideLoading();
-                  // let s = 'DUGufWMOkMIolSIXLajTvCEvXAYQZwSpnafUVlSagdNEReVSRDAECzwEVAtFbPWg'
-                  wx.setStorageSync('session_key', session.data.data.session3rd);
-                  wx.setStorageSync('shop', session.data.data);
-                  // wx.setStorageSync('session_key', s)
-                  if (loginSuccess) {
-                    loginSuccess(params);
-                  }
+              header: 'application/json',
+              success: function success(session) {
+                wx.hideLoading();
+                // let s = 'DUGufWMOkMIolSIXLajTvCEvXAYQZwSpnafUVlSagdNEReVSRDAECzwEVAtFbPWg'
+                wx.setStorageSync('session_key', session.data.data.session3rd);
+                wx.setStorageSync('shop', session.data.data);
+                // wx.setStorageSync('session_key', s)
+                if (loginSuccess) {
+                  loginSuccess(params);
                 }
-              };
-              that.wxrequest(objs);
-            },
-            fail: function fail() {
-              wx.showToast({
-                title: '您未授权小程序,请授权登陆'
-              });
-            }
-          };
-          that.getUserInfo(obj);
-        },
-        fail: function fail(err) {
-          console.log('loginError' + err);
-        }
-      });
-    }
+              }
+            };
+            that.wxrequest(objs);
+          },
+          fail: function fail() {
+            wx.showToast({
+              title: '您未授权小程序,请授权登陆'
+            });
+          }
+        };
+        that.getUserInfo(obj);
+      },
+      fail: function fail(err) {
+        console.log('loginError' + err);
+      }
+    });
+    // }
   },
 
   // 获取缓存session_key

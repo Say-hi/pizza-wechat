@@ -30,6 +30,31 @@ Page({
       }
     ]
   },
+  getCouponData () {
+    let that = this
+    app.wxrequest({
+      url: app.getUrl().mycoupon,
+      data: {
+        session3rd: app.gs()
+      },
+      success (res) {
+        wx.hideLoading()
+        if (res.data.code === '200') {
+          for (let m in res.data.data) {
+            for (let v of res.data.data[m]) {
+              v.start_time = new Date(v.start_time).toLocaleString()
+              v.end_time = new Date(v.end_time).toLocaleString()
+            }
+          }
+          that.setData({
+            couponArr: res.data.data
+          })
+        } else {
+          app.setToast(that, {content: res.data.msg})
+        }
+      }
+    })
+  },
   chooseTab (e) {
     this.setData({
       currentIndex: e.currentTarget.dataset.index
@@ -37,7 +62,7 @@ Page({
   },
   // 使用优惠卷
   useCoupon (e) {
-    app.su('useCoupon', this.data.couponArr[e.currentTarget.dataset.index])
+    app.su('useCoupon', this.data.couponArr.wsy[e.currentTarget.dataset.index])
     wx.navigateBack({
       delta: 1
     })
@@ -51,6 +76,7 @@ Page({
       needUseCoupon: options.type === 'order' ? true : false,
       orderMoney: options.money || 0
     })
+    this.getCouponData()
     // TODO: onLoad
   },
 

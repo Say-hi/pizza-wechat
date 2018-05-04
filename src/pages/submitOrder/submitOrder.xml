@@ -2,7 +2,7 @@
   <view class="f32 cfff">等待买家付款</view>
   <view class="f24 cfff">{{ timeText ?  '剩余' + timeText + '付款, 超时将自动取消订单' : '该订单超时已取消' }}</view>
 </view>
-<view catchtap="chooseAddress" class="address">
+<view catchtap="{{ type ? '' : 'chooseAddress' }}" class="address">
   <image mode="widthFix" src="../../images/add_address.png"></image>
   <view wx:if="{{ addressInfo }}" class="address-s">
     <view class="a-s-t">
@@ -19,11 +19,11 @@
 </view>
 <view class="goods-w">
   <view class="iconfont icon-dianpu lh70 f28 c333">迷迭香披萨</view>
-  <view wx:for="{{ menuArr }}" wx:key="*32" class="goods">
-    <image src="{{ item.img }}"></image>
+  <view wx:for="{{ menuArr }}" wx:if="{{ type ? true : item.checked }}" wx:key="*32" class="goods">
+    <image src="{{ item.img || item.src }}"></image>
     <view class="g-i">
-      <view class="f30 c333">{{ item.name }}</view>
-      <view class="f24 c999">规格： {{ item.size ? item.size : '标准尺' }}寸</view>
+      <view class="f30 c333">{{ item.goodsname }}</view>
+      <view class="f24 c999">规格： {{ item.size ? item.size : '标准尺寸' }}</view>
       <view class="g-b">
         <view class="f30 c333">
           <text class="f24">￥</text>{{ item.price }}
@@ -34,13 +34,13 @@
   </view>
   <view class="g-d bd1 lh80 f24">
     <view class="c333 fw7">配送费</view>
-    <view><text>￥</text>{{ sendMoney }}</view>
+    <view><text>￥</text>{{ dispatch_fee }}</view>
   </view>
-  <navigator url="../coupon/coupon?type=order&money={{ allMoney }}">
+  <navigator hover-class="none" url="{{ type ? '' : '../coupon/coupon?type=order&money=' + allMoney }}">
     <view class="g-d bd1 lh80 f24">
       <view class="c333 fw7">优惠卷</view>
-      <view class="arrow f24 c999">
-        {{ useCoupon ? '满' + useCoupon.need  + '减' + useCoupon.del : '点击使用' }}
+      <view class="{{ type ? '': 'arrow' }} f24 c999">
+        {{ type ? '优惠' + coupon_price + '元' : useCoupon ? '满' + useCoupon.use_price  + '减' + useCoupon.balance : '点击使用' }}
       </view>
     </view>
   </navigator>

@@ -8,10 +8,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-    sendMoney: 20
-  },
+  data: {},
   // 选择地址
   chooseAddress: function chooseAddress() {
     var that = this;
@@ -60,17 +57,14 @@ Page({
   // 选择支付方式
   choosePay: function choosePay() {
     if (!this.data.addressInfo) return app.setToast(this, { content: '请选择您的收货地址' });
+    var that = this;
     wx.showActionSheet({
       itemList: ['微信支付', '余额支付'],
       itemColor: '#333',
       success: function success(res) {
-        console.log(res.tapIndex);
-        wx.showToast({
-          title: '模拟支付成功'
-        });
-        wx.redirectTo({
-          url: '../order/order'
-        });
+        if (that.data.lostTime) {} else {
+          that.orderSubmit(res.tapIndex);
+        }
         wx.removeStorageSync('goodsStorage');
         wx.removeStorageSync('useCoupon');
       }
@@ -80,7 +74,7 @@ Page({
   // 计算价格
   calculateMoney: function calculateMoney() {
     this.setData({
-      calculateMoney: this.data.useCoupon ? this.data.allMoney * 1 + this.data.sendMoney * 1 - this.data.useCoupon.del : this.data.allMoney * 1 + this.data.sendMoney * 1
+      calculateMoney: this.data.useCoupon ? this.data.allMoney * 1 + this.data.dispatch_fee * 1 - this.data.useCoupon.balance : this.data.allMoney * 1 + this.data.dispatch_fee * 1
     });
   },
 
@@ -88,7 +82,9 @@ Page({
   showLostTime: function showLostTime(startTime) {
     var _this = this;
 
-    var endTime = new Date(startTime).getTime() + 900000; // 超时15分钟
+    console.log(new Date().getTime());
+    console.log(new Date(startTime * 1000).toLocaleString());
+    var endTime = startTime * 1000 + 900000; // 超时15分钟
     var timer = setInterval(function () {
       if (endTime - new Date().getTime() <= 0) {
         // todo 取消订单
@@ -110,17 +106,114 @@ Page({
     }, 100);
   },
 
+  // 获取订单详情
+  getOrderDetail: function getOrderDetail(oId, type) {
+    var that = this;
+    app.wxrequest({
+      url: app.getUrl().detail,
+      data: {
+        session3rd: app.gs(),
+        o_id: oId
+      },
+      success: function success(res) {
+        wx.hideLoading();
+        if (res.data.code === '200') {
+          var addressInfo = {
+            userName: res.data.data.name,
+            telNumber: res.data.data.phone,
+            provinceName: res.data.data.address
+          };
+          that.setData({
+            addressInfo: addressInfo,
+            menuArr: res.data.data.detail,
+            dispatch_fee: res.data.data.dispatch_fee,
+            coupon_price: res.data.data.coupon_price,
+            calculateMoney: res.data.data.price,
+            type: type,
+            /*eslint-disable*/
+            lostTime: type === 'second' ? true : false
+          });
+          that.showLostTime(res.data.data.time);
+          that.setData({
+            orderInfo: res.data.data
+          });
+        } else {
+          app.setToast(that, { content: res.data.msg });
+        }
+      }
+    });
+  },
+
+  // 提交订单
+  orderSubmit: function orderSubmit() {
+    var that = this;
+    var orderdata = [];
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = this.data.menuArr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var v = _step.value;
+
+        if (v.checked) {
+          orderdata.push({ s_id: v.id || v.s_id, num: v.num });
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+
+    app.wxrequest({
+      url: app.getUrl().orderBuy,
+      data: {
+        session3rd: app.gs(),
+        name: that.data.addressInfo.userName,
+        phone: that.data.addressInfo.telNumber,
+        address: that.data.addressInfo.provinceName + that.data.addressInfo.cityName + that.data.addressInfo.countyName + that.data.addressInfo.detailInfo,
+        data: orderdata,
+        cd_id: that.data.useCoupon ? that.data.useCoupon.cd_id : ''
+      },
+      success: function success(res) {
+        wx.hideLoading();
+        if (res.data.code === '200') {
+          // console.log(res)
+          console.log(res.data.data);
+        } else {
+          app.setToast(that, { content: res.data.msg });
+        }
+      }
+    });
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function onLoad(options) {
     /*eslint-disable*/
-    // new Date(new Date().getTime() + 1500000)
+    if (options.type === 'second') {
+      this.getOrderDetail(options.id, options.type);
+    } else {
+      this.setData({
+        dispatch_fee: app.gs('shop').shop.dispatch_fee,
+        menuArr: app.gs('goodsStorage')
+      });
+    }
     this.setData({
-      lostTime: options.type === 'second' ? true : false,
-      menuArr: app.gs('goodsStorage'),
-      sendTime: new Date(new Date().getTime() + 1500000).toLocaleString(),
-      allMoney: options.money || 0
+      orderId: options.id,
+      allMoney: options.money || 0,
+      sendTime: new Date(new Date().getTime() + 1500000).toLocaleString()
     });
     if (options.time) {
       this.showLostTime(options.time);
@@ -147,7 +240,7 @@ Page({
         useCoupon: app.gs('useCoupon')
       });
     }
-    if (app.gs('addressInfo')) {
+    if (app.gs('addressInfo') && !this.data.orderId) {
       this.setData({
         addressInfo: app.gs('addressInfo')
       });

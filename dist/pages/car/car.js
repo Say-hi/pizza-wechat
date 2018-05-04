@@ -11,8 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    allMoney: 0,
-    src: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
+    allMoney: 0
   },
   // 菜单页数量选择
   chooseMenuNum: function chooseMenuNum(e) {
@@ -225,11 +224,13 @@ Page({
    */
   onShow: function onShow() {
     if (app.gs('goodsStorage')) {
+      console.log(2);
       this.setData({
         menuArr: app.gs('goodsStorage')
       });
       this.chooseAll('must');
     } else {
+      console.log(1);
       this.setData({
         menuArr: []
       });

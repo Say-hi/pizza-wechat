@@ -8,17 +8,51 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
+  data: {},
+  // 获取订单详情
+  getOrderDetail: function getOrderDetail(oId) {
+    var that = this;
+    app.wxrequest({
+      url: app.getUrl().detail,
+      data: {
+        session3rd: app.gs(),
+        o_id: oId
+      },
+      success: function success(res) {
+        wx.hideLoading();
+        if (res.data.code === '200') {
+          var addressInfo = {
+            userName: res.data.data.name,
+            telNumber: res.data.data.phone,
+            provinceName: res.data.data.address
+          };
+          that.setData({
+            addressInfo: addressInfo,
+            menuArr: res.data.data.detail,
+            dispatch_fee: res.data.data.dispatch_fee,
+            coupon_price: res.data.data.coupon_price,
+            allMoney: res.data.data.price
+          });
+          res.data.data.time = new Date(res.data.data.time * 1000).toLocaleString();
+          res.data.data.pay_time = new Date(res.data.data.pay_time * 1000).toLocaleString();
+          that.setData({
+            orderInfo: res.data.data
+          });
+        } else {
+          app.setToast(that, { content: res.data.msg });
+        }
+      }
+    });
   },
   call: function call() {
-    app.call();
+    app.call(app.gs('shop').shop.tel);
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function onLoad() {
+  onLoad: function onLoad(options) {
+    this.getOrderDetail(options.id);
     // TODO: onLoad
   },
 

@@ -3,49 +3,20 @@
   <view catchtap="chooseTab" data-index="1" class="{{ currentIndex == 1 ? 'show main-text-color' : 'noshow' }}">已使用</view>
   <view catchtap="chooseTab" data-index="2" class="{{ currentIndex == 2 ? 'show main-text-color' : 'noshow' }}">已失效</view>
 </view>
-
-<view wx:if="{{ currentIndex == 0 }}" wx:for="{{ couponArr }}" wx:key="*9" class="coupon">
+<view wx:if="{{ !needUseCoupon }}" class="zw"></view>
+<view wx:for="{{ couponArr[ currentIndex == 0 ? 'wsy' : currentIndex == 1 ? 'ysy' : 'ysx' ] }}" wx:key="*9" class="coupon">
   <!--左侧-->
   <view class="c-left tac">
     <view>
-      <text class="f20">￥</text><text class="f30">{{ item.del }}</text>
+      <text class="f20">￥</text><text class="f30">{{ item.balance }}</text>
     </view>
-    <view class="f20">满{{ item.need }}元使用</view>
+    <view class="f20">满{{ item.use_price }}元使用</view>
   </view>
   <!--右侧-->
   <view class="c-right">
-    <view class="f30">{{ item.title }}</view>
-    <view class="f20">{{ item.time }}</view>
-    <view wx:if="{{ needUseCoupon  }}" catchtap="{{ item.need <= orderMoney ?  'useCoupon' : '' }}" data-index="{{ index }}" data-id="{{ item.id }}" class="use-coupon f22 main-text-color">{{ item.need <= orderMoney ?  '立即使用' : '金额不符'  }}</view>
+    <view class="f30">{{ item.c_name }}</view>
+    <view class="f20">{{ item.start_time }}至{{ item.end_time }}</view>
+    <view wx:if="{{ needUseCoupon  }}" catchtap="{{ item.use_price * 1 <= orderMoney * 1 ?  'useCoupon' : '' }}" data-index="{{ index }}" data-id="{{ item.cd_id }}" class="use-coupon f22 main-text-color">{{ item.use_price * 1 <= orderMoney * 1 ?  '立即使用' : '金额不符'  }}</view>
   </view>
 </view>
-
-<view wx:if="{{ currentIndex == 1 }}" wx:for="123" wx:key="*10" class="coupon">
-<!--左侧-->
-<view class="c-left tac">
-  <view>
-    <text class="f20">￥</text><text class="f30">10</text>
-  </view>
-  <view class="f20">满20元使用</view>
-</view>
-<!--右侧-->
-<view class="c-right">
-  <view class="f30">小程序10元优惠卷</view>
-  <view class="f20">有效期30天</view>
-</view>
-</view>
-
-<view wx:if="{{ currentIndex == 2 }}" wx:for="123" wx:key="*11" class="coupon">
-<!--左侧-->
-<view class="c-left tac">
-  <view>
-    <text class="f20">￥</text><text class="f30">10</text>
-  </view>
-  <view class="f20">满10元使用</view>
-</view>
-<!--右侧-->
-<view class="c-right">
-  <view class="f30">小程序10元优惠卷</view>
-  <view class="f20">有效期30天</view>
-</view>
-</view>
+<view class="tac f32 c666" wx:if="{{ !couponArr[ currentIndex == 0 ? 'wsy' : currentIndex == 1 ? 'ysy' : 'ysx' ].length }}">您尚无相关优惠卷哦</view>

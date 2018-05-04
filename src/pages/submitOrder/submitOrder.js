@@ -6,10 +6,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-    sendMoney: 20
-  },
+  data: {},
   // 选择地址
   chooseAddress () {
     let that = this
@@ -55,17 +52,16 @@ Page({
   // 选择支付方式
   choosePay () {
     if (!this.data.addressInfo) return app.setToast(this, {content: '请选择您的收货地址'})
+    let that = this
     wx.showActionSheet({
       itemList: ['微信支付', '余额支付'],
       itemColor: '#333',
       success (res) {
-        console.log(res.tapIndex)
-        wx.showToast({
-          title: '模拟支付成功'
-        })
-        wx.redirectTo({
-          url: '../order/order'
-        })
+        if (that.data.lostTime) {
+
+        } else {
+          that.orderSubmit(res.tapIndex)
+        }
         wx.removeStorageSync('goodsStorage')
         wx.removeStorageSync('useCoupon')
       }
@@ -74,12 +70,14 @@ Page({
   // 计算价格
   calculateMoney () {
     this.setData({
-      calculateMoney: this.data.useCoupon ? this.data.allMoney * 1 + this.data.sendMoney * 1 - this.data.useCoupon.del : this.data.allMoney * 1 + this.data.sendMoney * 1
+      calculateMoney: this.data.useCoupon ? this.data.allMoney * 1 + this.data.dispatch_fee * 1 - this.data.useCoupon.balance : this.data.allMoney * 1 + this.data.dispatch_fee * 1
     })
   },
   // 倒计时
   showLostTime (startTime) {
-    let endTime = new Date(startTime).getTime() + 900000 // 超时15分钟
+    console.log(new Date().getTime())
+    console.log(new Date(startTime * 1000).toLocaleString())
+    let endTime = startTime * 1000 + 900000 // 超时15分钟
     let timer = setInterval(() => {
       if (endTime - new Date().getTime() <= 0) {
         // todo 取消订单
@@ -100,17 +98,90 @@ Page({
       })
     }, 100)
   },
+  // 获取订单详情
+  getOrderDetail (oId, type) {
+    let that = this
+    app.wxrequest({
+      url: app.getUrl().detail,
+      data: {
+        session3rd: app.gs(),
+        o_id: oId
+      },
+      success (res) {
+        wx.hideLoading()
+        if (res.data.code === '200') {
+          let addressInfo = {
+            userName: res.data.data.name,
+            telNumber: res.data.data.phone,
+            provinceName: res.data.data.address
+          }
+          that.setData({
+            addressInfo,
+            menuArr: res.data.data.detail,
+            dispatch_fee: res.data.data.dispatch_fee,
+            coupon_price: res.data.data.coupon_price,
+            calculateMoney: res.data.data.price,
+            type,
+            /*eslint-disable*/
+            lostTime: type === 'second' ? true : false
+          })
+          that.showLostTime(res.data.data.time)
+          that.setData({
+            orderInfo: res.data.data
+          })
+        } else {
+          app.setToast(that, {content: res.data.msg})
+        }
+      }
+    })
+  },
+  // 提交订单
+  orderSubmit () {
+    let that = this
+    let orderdata = []
+    for (let v of this.data.menuArr) {
+      if (v.checked) {
+        orderdata.push({s_id: v.id || v.s_id, num: v.num})
+      }
+    }
+    app.wxrequest({
+      url: app.getUrl().orderBuy,
+      data: {
+        session3rd: app.gs(),
+        name: that.data.addressInfo.userName,
+        phone: that.data.addressInfo.telNumber,
+        address: that.data.addressInfo.provinceName + that.data.addressInfo.cityName + that.data.addressInfo.countyName + that.data.addressInfo.detailInfo,
+        data: orderdata,
+        cd_id: that.data.useCoupon ? that.data.useCoupon.cd_id : ''
+      },
+      success (res) {
+        wx.hideLoading()
+        if (res.data.code === '200') {
+          // console.log(res)
+          console.log(res.data.data)
+        } else {
+          app.setToast(that, {content: res.data.msg})
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad (options) {
     /*eslint-disable*/
-    // new Date(new Date().getTime() + 1500000)
+    if (options.type === 'second') {
+      this.getOrderDetail(options.id, options.type)
+    } else {
+      this.setData({
+        dispatch_fee: app.gs('shop').shop.dispatch_fee,
+        menuArr: app.gs('goodsStorage')
+      })
+    }
     this.setData({
-      lostTime: options.type === 'second' ? true : false,
-      menuArr: app.gs('goodsStorage'),
-      sendTime: new Date(new Date().getTime() + 1500000).toLocaleString(),
-      allMoney: options.money || 0
+      orderId: options.id,
+      allMoney: options.money || 0,
+      sendTime: new Date(new Date().getTime() + 1500000).toLocaleString()
     })
     if (options.time) {
       this.showLostTime(options.time)
@@ -135,7 +206,7 @@ Page({
         useCoupon: app.gs('useCoupon')
       })
     }
-    if (app.gs('addressInfo')) {
+    if (app.gs('addressInfo') && !this.data.orderId) {
       this.setData({
         addressInfo: app.gs('addressInfo')
       })

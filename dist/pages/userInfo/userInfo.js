@@ -1,7 +1,7 @@
 'use strict';
 
 // 获取全局应用程序实例对象
-// const app = getApp()
+var app = getApp();
 
 // 创建页面实例对象
 Page({
@@ -11,6 +11,26 @@ Page({
   data: {
     title: 'userInfo'
   },
+  getUser: function getUser() {
+    var that = this;
+    app.wxrequest({
+      url: app.getUrl().user,
+      data: {
+        session3rd: app.gs()
+      },
+      success: function success(res) {
+        wx.hideLoading();
+        if (res.data.code === '200') {
+          that.setData({
+            userInfo: res.data.data
+          });
+        } else {
+          app.setToast(that, { content: res.data.msg });
+        }
+      }
+    });
+  },
+
   // 查看微信地址
   address: function address() {
     wx.chooseAddress();
@@ -20,6 +40,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function onLoad() {
+    this.getUser();
     // TODO: onLoad
   },
 

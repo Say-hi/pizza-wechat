@@ -5,9 +5,9 @@
       <image class="br" src="{{ userInfo.head_img }}"></image>
       <view>
         <view>
-          <text class="cfff f28">{{ userInfo.nick_name }}</text><text class="level f20">lv.0</text>
+          <text class="cfff f28">{{ userInfo.nick_name }}</text><text class="level f20">lv.{{ userInfo.level }}</text>
         </view>
-        <view><text class="cfff f24 fw7">您还不是会员</text></view>
+        <view><text class="cfff f24 fw7">{{ userInfo.level ? '尊贵的' + userInfo.level + '级会员您好' : '您还不是会员' }}</text></view>
       </view>
     </view>
     <view class="user-info-in-bottom">
@@ -42,7 +42,7 @@
 </view>
 <view class="user-middle user-middle-two">
   <navigator url="../coupon/coupon">
-    <view class="iconfont icon-swticonyouhuiquanwenzi f26 c333">优惠卷<view class="f20 cfff br">2</view></view>
+    <view class="iconfont icon-swticonyouhuiquanwenzi f26 c333">优惠卷<view class="f20 cfff br">{{ couponCount || 0 }}</view></view>
   </navigator>
   <navigator url="../userInfo/userInfo">
     <view class="iconfont icon-zhanghuziliao f26 c333">我的资料</view>

@@ -3,87 +3,37 @@
   <view catchtap="chooseTab" data-index="1" class="{{ currentIndex == 1 ? 'show main-text-color' : 'noshow' }}">进行中</view>
   <view catchtap="chooseTab" data-index="2" class="{{ currentIndex == 2 ? 'show main-text-color' : 'noshow' }}">已完成</view>
 </view>
-<view class="order" wx:if="{{ currentIndex == 0 }}" wx:key="*41" wx:for="12">
-  <view class="o-t f24 c333 lh50"><text>订单编号: 201234864651</text><text class="f28">等待买家付款</text></view>
+<view class="zw"></view>
+<navigator hover-class="none" url='{{ currentIndex == 2 ? "../finish/finish?id=" + item.o_id : "" }}' class="order" wx:key="*41" wx:for="{{ orderArr }}">
+  <view class="o-t f24 c333 lh50"><text>订单编号: {{ item.order_number }}</text><text class="f28">{{ item.status == 1 ? '等待买家付款' : item.status == 2 ? '等待商家发货' : item.status == 3 ? '商家配送中' : item.status == 4 ? '订单已完成' : '订单已取消' }}</text></view>
   <view class="goods">
-    <image src="{{ img }}"></image>
+    <image src="{{ item.detail[0].src }}"></image>
     <view class="g-i">
-      <view class="f30 c333">超级好吃的榴莲披萨</view>
-      <view class="f24 c999">规格： 10寸</view>
+      <view class="f30 c333">{{ item.detail[0].goodsname }}</view>
+      <view class="f24 c999">规格： {{ item.detail[0].spec_name }}</view>
       <view class="g-b">
         <view class="f30 c333">
-          <text class="f24">￥</text>88.00
+          <text class="f24">￥</text>{{ item.detail[0].price }}
         </view>
-        <view class="f24 c999">×2</view>
+        <view class="f24 c999">×{{ item.detail[0].num }}</view>
       </view>
     </view>
   </view>
-  <view class="tac o-m bd1">
-    <text class="f24 main-text-color">此订单含2件商品</text>
+  <view wx:if="{{ item.detail.length >= 2 }}" class="tac o-m bd1">
+    <text class="f24 main-text-color">此订单含{{ item.detail.length }}件商品</text>
   </view>
-  <view class="f24 c333 o-price bd1 lh70">合计: <text class="f30 main-text-color">88.00</text></view>
+  <view class="f24 c333 o-price bd1 lh70">合计: <text class="f30 main-text-color">{{ item.allMoney }}</text></view>
   <view class="o-btn f28 c99">
-    <view data-id="{{ item.id }}">取消订单</view>
-    <navigator url="../submitOrder/submitOrder?id={{ item.id }}&type=second&time=2018-04-09 14:06:10" >
-      <view class="cfff" data-id="{{ item.id }}">确认付款</view>
+    <view catchtap="orderOperation" data-index="{{ index }}" data-type="2" wx:if="{{ item.status == 1 }}" data-id="{{ item.o_id }}">取消订单</view>
+    <navigator wx:if="{{ item.status == 1 }}" hover-class="none" url="../submitOrder/submitOrder?id={{ item.o_id }}&type=second" >
+      <view class="cfff" data-id="{{ item.o_id }}">确认付款</view>
     </navigator>
-    <view class="cfff" data-id="{{ item.id }}">催单</view>
-    <view data-id="{{ item.id }}">删除订单</view>
-  </view>
-</view>
-<view class="order" wx:if="{{ currentIndex == 1 }}" wx:key="*42" wx:for="12">
-<view class="o-t f24 c333 lh50"><text>订单编号: 201234864651</text><text class="f28 main-text-color">买家已付款</text></view>
-<view class="goods">
-  <image src="{{ img }}"></image>
-  <view class="g-i">
-    <view class="f30 c333">超级好吃的榴莲披萨</view>
-    <view class="f24 c999">规格： 10寸</view>
-    <view class="g-b">
-      <view class="f30 c333">
-        <text class="f24">￥</text>88.00
-      </view>
-      <view class="f24 c999">×2</view>
-    </view>
-  </view>
-</view>
-<view class="tac o-m bd1">
-  <text class="f24 main-text-color">此订单含2件商品</text>
-</view>
-<view class="f24 c333 o-price bd1 lh70">合计: <text class="f30 main-text-color">88.00</text></view>
-<view class="o-btn f28 c99">
-  <!--<view data-id="{{ item.id }}">取消订单</view>-->
-  <!--<navigator url="../submitOrder/submitOrder?id={{ item.id }}&type=second&time=2018-04-09 10:55:10" >-->
-    <!--<view class="cfff" data-id="{{ item.id }}">确认付款</view>-->
-  <!--</navigator>-->
-  <view class="cfff" data-id="{{ item.id }}">催单</view>
-  <!--<view data-id="{{ item.id }}">删除订单</view>-->
-</view>
-</view>
-<navigator url='../finish/finish' class="order" wx:if="{{ currentIndex == 2 }}" wx:key="*43" wx:for="12">
-  <view class="o-t f24 c333 lh50"><text>订单编号: 201234864651</text><text class="f28">等待买家付款</text></view>
-  <view class="goods">
-    <image src="{{ img }}"></image>
-    <view class="g-i">
-      <view class="f30 c333">超级好吃的榴莲披萨</view>
-      <view class="f24 c999">规格： 10寸</view>
-      <view class="g-b">
-        <view class="f30 c333">
-          <text class="f24">￥</text>88.00
-        </view>
-        <view class="f24 c999">×2</view>
-      </view>
-    </view>
-  </view>
-  <view class="tac o-m bd1">
-    <text class="f24 main-text-color">此订单含2件商品</text>
-  </view>
-  <view class="f24 c333 o-price bd1 lh70">合计: <text class="f30 main-text-color">88.00</text></view>
-  <view class="o-btn f28 c99">
-    <!--<view data-id="{{ item.id }}">取消订单</view>-->
-    <!--<navigator url="../submitOrder/submitOrder?id={{ item.id }}&type=second&time=2018-04-09 10:55:10" >-->
-      <!--<view class="cfff" data-id="{{ item.id }}">确认付款</view>-->
-    <!--</navigator>-->
-    <!--<view class="cfff" data-id="{{ item.id }}">催单</view>-->
-    <view catchtap="delOrder" data-id="{{ item.id }}">删除订单</view>
+    <view catchtap="cuidan" class="cfff" wx:if="{{ item.status == 2 || item.status == 3 }}" data-id="{{ item.o_id }}">催单</view>
+    <view catchtap="orderOperation" data-index="{{ index }}" data-type="1" wx:if="{{ item.status == 4 || item.status == 5 }}" data-id="{{ item.o_id }}">删除订单</view>
   </view>
 </navigator>
+<view wx:if="{{ !orderArr.length }}" class="tac f32 c666">您还没有相关订单哦</view>
+
+        <!--错误弹窗-->
+<import src="../template/template"></import>
+<template wx:if="{{ toast.show }}" is="showToast" data="{{ ...toast }}"></template>

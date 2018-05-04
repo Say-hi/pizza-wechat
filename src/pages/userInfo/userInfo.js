@@ -1,5 +1,5 @@
 // 获取全局应用程序实例对象
-// const app = getApp()
+const app = getApp()
 
 // 创建页面实例对象
 Page({
@@ -9,12 +9,32 @@ Page({
   data: {
     title: 'userInfo'
   },
+  getUser () {
+    let that = this
+    app.wxrequest({
+      url: app.getUrl().user,
+      data: {
+        session3rd: app.gs()
+      },
+      success (res) {
+        wx.hideLoading()
+        if (res.data.code === '200') {
+          that.setData({
+            userInfo: res.data.data
+          })
+        } else {
+          app.setToast(that, {content: res.data.msg})
+        }
+      }
+    })
+  },
   // 查看微信地址
   address () { wx.chooseAddress() },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad () {
+    this.getUser()
     // TODO: onLoad
   },
 
