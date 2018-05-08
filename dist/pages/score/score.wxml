@@ -3,7 +3,7 @@
   <view class="user-info-in">
     <view class="user-info-in-bottom">
       <view>
-        <text class="f30 fw7 cfff">1234</text>
+        <text class="f30 fw7 cfff">{{ score }}</text>
         <text class="f22" style="color: #EBCDC5;">当前积分</text>
       </view>
     </view>
@@ -12,34 +12,22 @@
 </view>
 <view class="tac f24 c666 new-title lh80">积分明细</view>
 <view class="score-detail-wrap">
-  <view class="score-detail bd1" wx:for="123" wx:key="*4">
+  <view class="score-detail bd1" wx:for="{{ listArr }}" wx:key="*4">
     <view>
-      <view class="f28 c333">消费</view>
-      <view class="f22 c999">2018-03-24 12:22:23</view>
+      <view class="f28 c333">{{ item.msg }}</view>
+      <view class="f22 c999">{{ item.time }}</view>
     </view>
-    <view class="f28 c333" style="color: {{ 1 ? '#f30' : '' }}">-30</view>
+    <view class="f28 c333" style="color: {{ item.type == 1 ? '#f30' : '' }}">{{ item.type == 2 ? '-' : '' }}{{ item.balance }}</view>
   </view>
+  <view wx:if="{{ !listArr.length }}" class="tac f30 c999 p20">您还没有积分记录哦~</view>
 </view>
 <!--积分规则-->
 <view wx:if="{{ show }}" class="new-user-coupon {{ small ? 'small' : '' }}">
   <view class="new-user-coupon-in">
     <view class="new-user-coupon-text">
       <view class="f30 c333 new-title tac lh80">积分规则</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
-      <view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>
+      <view class="tac f24 c333 new-get">消费{{ set }}元返回{{ get }}积分</view>
+      <!--<view class="tac f24 c333 new-get">已放到您的优惠卷卡包</view>-->
       <!--<view class="tac">-->
       <view catchtap="close" class="tac f30 lh70 fw7 new-know">确定</view>
       <!--</view>-->
@@ -48,3 +36,7 @@
   </view>
 </view>
 
+
+        <!--错误弹窗-->
+<import src="../template/template"></import>
+<template wx:if="{{ toast.show }}" is="showToast" data="{{ ...toast }}"></template>

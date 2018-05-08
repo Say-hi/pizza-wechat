@@ -47,8 +47,8 @@ Page({
               for (var _iterator = res.data.data[m][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var v = _step.value;
 
-                v.start_time = new Date(v.start_time).toLocaleString();
-                v.end_time = new Date(v.end_time).toLocaleString();
+                v.start_time = new Date(v.start_time * 1000).toLocaleString();
+                v.end_time = new Date(v.end_time * 1000).toLocaleString();
               }
             } catch (err) {
               _didIteratorError = true;

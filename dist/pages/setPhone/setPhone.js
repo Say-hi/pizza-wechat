@@ -12,22 +12,56 @@ Page({
     title: 'setPhone',
     text: '获取验证码'
   },
+  getCode: function getCode(phone) {
+    var that = this;
+    app.wxrequest({
+      url: app.getUrl().getcode,
+      data: {
+        session3rd: app.gs(),
+        phone: phone
+      },
+      success: function success(res) {
+        wx.hideLoading();
+        if (res.data.code === '200') {
+          that.lostTime();
+          wx.showToast({
+            title: '请查收验证码'
+          });
+        } else {
+          app.setToast(that, { content: res.data.msg });
+        }
+      }
+    });
+  },
   confirm: function confirm(e) {
+    var that = this;
     if (e.detail.target.dataset.type === 'code') {
       if (app.checkMobile(e.detail.value.phone)) return app.setToast(this, { content: '请输入正确的11位手机号' });
-      this.lostTime();
+      this.getCode(e.detail.value.phone);
     } else {
       if (app.checkMobile(e.detail.value.phone)) return app.setToast(this, { content: '请输入正确的11位手机号' });
       if (!e.detail.value.code) return app.setToast(this, { content: '请输入验证码' });
       app.wxrequest({
-        url: app.getUrl().login,
+        url: app.getUrl().bind,
         data: {
+          session3rd: app.gs(),
           phone: e.detail.value.phone,
           code: e.detail.value.code
         },
         success: function success(res) {
           wx.hideLoading();
-          console.log(res);
+          if (res.data.code === '200') {
+            wx.showToast({
+              title: '绑定成功'
+            });
+            setTimeout(function () {
+              wx.navigateBack({
+                delta: 1
+              });
+            }, 1000);
+          } else {
+            app.setToast(that, { content: res.data.msg });
+          }
         }
       });
     }

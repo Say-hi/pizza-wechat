@@ -418,9 +418,11 @@ App({
             // let iv = data.iv
             // let encryptedData = data.encryptedData
             var recommendId = '';
+            // console.log('params', params)
             if (params) {
-              recommendId: params.id;
+              recommendId = params.id * 1;
             }
+            // console.log('recommendId', recommendId)
             // 获取session_key
             // console.log(data.userInfo)
             // let res2 = []
@@ -442,6 +444,7 @@ App({
               },
               header: 'application/json',
               success: function success(session) {
+                // console.log(objs)
                 wx.hideLoading();
                 // let s = 'DUGufWMOkMIolSIXLajTvCEvXAYQZwSpnafUVlSagdNEReVSRDAECzwEVAtFbPWg'
                 wx.setStorageSync('session_key', session.data.data.session3rd);

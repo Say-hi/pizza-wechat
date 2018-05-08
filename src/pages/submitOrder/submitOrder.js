@@ -54,13 +54,13 @@ Page({
     if (!this.data.addressInfo) return app.setToast(this, {content: '请选择您的收货地址'})
     let that = this
     wx.showActionSheet({
-      itemList: ['微信支付', '余额支付'],
+      itemList: ['余额支付', '微信支付'],
       itemColor: '#333',
       success (res) {
         if (that.data.lostTime) {
-
+          that.payMoney(res.tapIndex * 1 + 1, that.data.orderId)
         } else {
-          that.orderSubmit(res.tapIndex)
+          that.orderSubmit(res.tapIndex * 1 + 1)
         }
         wx.removeStorageSync('goodsStorage')
         wx.removeStorageSync('useCoupon')
@@ -136,7 +136,7 @@ Page({
     })
   },
   // 提交订单
-  orderSubmit () {
+  orderSubmit (type) {
     let that = this
     let orderdata = []
     for (let v of this.data.menuArr) {
@@ -157,10 +157,34 @@ Page({
       success (res) {
         wx.hideLoading()
         if (res.data.code === '200') {
-          // console.log(res)
-          console.log(res.data.data)
+          that.payMoney(type, res.data.data)
         } else {
           app.setToast(that, {content: res.data.msg})
+        }
+      }
+    })
+  },
+  payMoney (status, id) {
+    let that = this
+    app.wxrequest({
+      url: app.getUrl().orderPay,
+      data: {
+        session3rd: app.gs(),
+        status,
+        o_id: id
+      },
+      success (res) {
+        wx.hideLoading()
+        if (res.data.code === '200') {
+          console.log(res)
+        } else {
+          app.setToast(that, {content: res.data.msg})
+          if (that.data.lostTime) return
+          setTimeout(() => {
+            wx.redirectTo({
+              url: `../submitOrder/submitOrder?id=${id}&type=second`
+            })
+          }, 1500)
         }
       }
     })

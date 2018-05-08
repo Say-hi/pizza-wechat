@@ -2,10 +2,10 @@
 //  群信息小程序页面分布
   "pages": [
     "pages/index/index", // 首页,
+    "pages/setPhone/setPhone", // 手机绑定
     "pages/coupon/coupon", // 优惠卷
     "pages/order/order", // 订单
     "pages/menu/menu", // 菜单
-    "pages/setPhone/setPhone", // 手机绑定
     "pages/submitOrder/submitOrder", // 提交订单  代付款订单
     "pages/finish/finish", // 完成支付的订单
     "pages/car/car", // 购物车

@@ -42,8 +42,8 @@ Page({
         if (res.data.code === '200') {
           for (let m in res.data.data) {
             for (let v of res.data.data[m]) {
-              v.start_time = new Date(v.start_time).toLocaleString()
-              v.end_time = new Date(v.end_time).toLocaleString()
+              v.start_time = new Date(v.start_time * 1000).toLocaleString()
+              v.end_time = new Date(v.end_time * 1000).toLocaleString()
             }
           }
           that.setData({

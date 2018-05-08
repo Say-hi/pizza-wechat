@@ -11,13 +11,13 @@
       </view>
     </view>
     <view class="user-info-in-bottom">
-      <navigator url="../score/score">
+      <navigator url="../score/score?score={{ userInfo.integra || 0 }}">
         <view>
           <text class="f30 fw7 cfff">{{ userInfo.integra || 0 }}</text>
           <text class="f20" style="color: #EBCDC5;">积分</text>
         </view>
       </navigator>
-      <navigator url="../money/money">
+      <navigator url="../money/money?m={{ userInfo.money }}">
         <view>
           <text class="f30 fw7 cfff">{{ userInfo.money }}</text>
           <text class="f20" style="color: #EBCDC5;">余额</text>
@@ -33,7 +33,7 @@
   </navigator>
 </view>
 <view class="user-middle {{ !phone ? 'user-middle-top' : '' }}">
-  <navigator url="../invite/invite">
+  <navigator url="../invite/invite?id={{ userInfo.u_id }}">
     <view class="iconfont icon-liwu f26 c333">邀请有奖</view>
   </navigator>
   <navigator url="../order/order">

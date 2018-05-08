@@ -8,9 +8,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
-    img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg'
-  },
+  data: {},
   call: function call() {
     app.call(this.data.userInfo.kefu_tel);
   },
@@ -57,6 +55,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function onLoad() {
+    this.setData({
+      img: app.gs('shop').shop.img
+    });
     // TODO: onLoad
   },
 

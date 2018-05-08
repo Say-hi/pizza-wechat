@@ -1,8 +1,8 @@
-<image class="bg" src="{{ inviteImg || '../../images/invite_bg.png' }}"></image>
+<image class="bg" src="{{ info.img }}"></image>
 <button class="btn" open-type="share">
   <image mode="widthFix" src="{{ inviteBtn || '../../images/invite_btn.png' }}"></image>
 </button>
-<view class="f26 cfff new-title tac lh40">新人礼包</view>
+<view class="f26 cfff new-title tac lh40">活动详情</view>
 <scroll-view scroll-y>
-  <view wx:for="123421342134" wx:key="*11" class="f22 tac" style="color: #fcc;">asdfasdfasdfsdaf</view>
+  <view class="f22 tac p20" style="color: #fcc;">{{ info.content }}</view>
 </scroll-view>

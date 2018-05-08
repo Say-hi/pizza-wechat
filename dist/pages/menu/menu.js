@@ -16,12 +16,6 @@ Page({
     sizeNum: 1,
     allMoney: 0
   },
-  // 领取优惠卷
-  getCoupon: function getCoupon(e) {
-    var that = this;
-    app.setToast(that, { image: '../../images/success.png', bgc: '#333', color: '#f30', content: '领取成功' });
-  },
-
   // 菜单页数量选择
   chooseMenuNum: function chooseMenuNum(e) {
     if (e.currentTarget.dataset.type === 'del') {
@@ -344,6 +338,26 @@ Page({
             t_id: menuTabArr[0].t_id,
             menuTabArr: menuTabArr
           });
+        } else {
+          app.setToast(that, { content: res.data.msg });
+        }
+      }
+    });
+  },
+
+  // 领取优惠卷
+  getCoupon: function getCoupon(e) {
+    var that = this;
+    app.wxrequest({
+      url: app.getUrl().getcoupon,
+      data: {
+        session3rd: app.gs(),
+        c_id: e.currentTarget.dataset.id
+      },
+      success: function success(res) {
+        wx.hideLoading();
+        if (res.data.code === '200') {
+          app.setToast(that, { image: '../../images/success.png', bgc: '#333', color: '#f30', content: '领取成功' });
         } else {
           app.setToast(that, { content: res.data.msg });
         }

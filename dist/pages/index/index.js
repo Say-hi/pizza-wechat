@@ -9,16 +9,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bannerArr: [{
-      img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      url: '../asdf/adsf'
-    }, {
-      img: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg',
-      url: '../asdf/adsf'
-    }, {
-      img: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      url: '../asdf/adsf'
-    }],
     indicatorColor: '#7c7c7c',
     indicatorActiveColor: '#000000',
     indicatorColor2: '#d0d0d0',
@@ -73,8 +63,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function onLoad() {
-    app.wxlogin(this.setShopInfo, '');
+  onLoad: function onLoad(options) {
+    console.log(options);
+    app.wxlogin(this.setShopInfo, { id: options.id });
     // console.dir(app.data)
   },
 
