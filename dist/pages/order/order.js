@@ -11,6 +11,7 @@ Page({
   data: {
     orderArr: [],
     currentIndex: 0,
+    needshowindex: -1,
     page: 0
   },
   getOrderData: function getOrderData() {
@@ -126,6 +127,14 @@ Page({
           app.setToast(that, { content: res.data.msg });
         }
       }
+    });
+  },
+  cuidan: function cuidan() {
+    app.call(app.gs('shop').shop.tel);
+  },
+  showAll: function showAll(e) {
+    this.setData({
+      needshowindex: e.currentTarget.dataset.index
     });
   },
 

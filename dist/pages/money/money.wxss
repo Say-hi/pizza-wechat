@@ -22,7 +22,7 @@ page {
   padding: 40rpx 30rpx;
   align-items: center;
 }
-.user-info .user-info-in .user-info-in-top image {
+.user-info .user-info-in .user-info-in-top .img {
   width: 91rpx;
   height: 91rpx;
   margin-right: 20rpx;
@@ -310,6 +310,7 @@ page {
 .mask input {
   text-align: center;
   border: none;
+  border-bottom: 1rpx solid #ccc;
 }
 .mask .mask-btn button {
   flex: 1;

@@ -32,6 +32,8 @@ Page({
 
   // 确认订单
   confirm: function confirm() {
+    if (this.data.allMoney <= 0) return app.setToast(this, { content: '请选择要购买的商品' });
+    if (this.data.allMoney < this.data.dispatch) return app.setToast(this, { content: '\u62B1\u6B49\uFF0C\u8D77\u9001\u91D1\u989D\u4E3A' + this.data.dispatch + '\u5143\u54E6' });
     wx.navigateTo({
       url: '../submitOrder/submitOrder?money=' + this.data.allMoney
     });
@@ -85,7 +87,7 @@ Page({
     }
 
     this.setData({
-      allMoney: allMoney
+      allMoney: allMoney.toFixed(2)
     });
   },
 
@@ -224,17 +226,20 @@ Page({
    */
   onShow: function onShow() {
     if (app.gs('goodsStorage')) {
-      console.log(2);
+      // console.log(2)
       this.setData({
         menuArr: app.gs('goodsStorage')
       });
       this.chooseAll('must');
     } else {
-      console.log(1);
+      // console.log(1)
       this.setData({
         menuArr: []
       });
     }
+    this.setData({
+      dispatch: app.gs('shop').shop.dispatch
+    });
     // TODO: onShow
   },
 

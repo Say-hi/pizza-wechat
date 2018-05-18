@@ -18,7 +18,7 @@ page {
 }
 
 .m-l {
-  margin-top: 20rpx;
+  //margin-top: 20rpx;
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -53,26 +53,42 @@ page {
   }
 
   .m-l-r {
-    display: flex;
-    align-items: center;
-    margin-right: 20rpx;
+    //display: flex;
+    //align-items: center;
+    //margin-right: 20rpx;
+    //transform: translateY();
+    position: absolute;
+    bottom: 20rpx;
+    right: 120rpx;
+    z-index: 100;
     @lengtht: 50rpx;
     .order-btn, .order-num {
-      width: @lengtht;
-      height: @lengtht;
-      line-height: @lengtht - 5;
+      position: relative;
+      display: inline-block;
+      //padding: 5rpx 10rpx;
+      width: 50rpx;
+      height: 50rpx;
       text-align: center;
-      border-radius: 50%;
-      background-color: @mainBackgroundColor;
-      margin: 0 10rpx;
-      vertical-align: middle;
-      font-size: 50rpx;
+      box-sizing: border-box;
+      border: 2rpx solid #ccc;
+      //font-size: 29rpx;
+      color: #999;
+      //border-radius: 50%;
+      //background-color: @mainBackgroundColor;
+      //margin: 0 10rpx;
+      //vertical-align: middle;
+      font-size: 29rpx;
+    }
+    .order-btn::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
     .order-num {
       background: #fff;
-      margin: 0;
-      width: inherit;
-      font-size: 24rpx;
+      line-height: 50rpx;
+      //font-size: 29rpx;
     }
   }
 }
@@ -140,7 +156,7 @@ page {
 .del-btn {
   background-color: @mainBackgroundColor;
   line-height: 140rpx;
-  padding: 0 8rpx;
+  padding: 0 20rpx;
 }
 //.wx-radio-input-checked::before
 
@@ -159,5 +175,5 @@ page {
 }
 
 .zw {
-  height: 88rpx;
+  height: 108rpx;
 }

@@ -50,3 +50,4 @@
 <!--错误弹窗-->
 <import src="../template/template"></import>
 <template wx:if="{{ toast.show }}" is="showToast" data="{{ ...toast }}"></template>
+<template wx:if="{{ !needUserInfo }}" is="getUserInfo"></template>

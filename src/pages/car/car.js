@@ -27,6 +27,8 @@ Page({
   },
   // 确认订单
   confirm () {
+    if (this.data.allMoney <= 0) return app.setToast(this, {content: '请选择要购买的商品'})
+    if (this.data.allMoney < this.data.dispatch) return app.setToast(this, {content: `抱歉，起送金额为${this.data.dispatch}元哦`})
     wx.navigateTo({
       url: `../submitOrder/submitOrder?money=${this.data.allMoney}`
     })
@@ -55,7 +57,7 @@ Page({
       }
     }
     this.setData({
-      allMoney
+      allMoney: allMoney.toFixed(2)
     })
   },
   // 选择所有
@@ -121,17 +123,20 @@ Page({
    */
   onShow () {
     if (app.gs('goodsStorage')) {
-      console.log(2)
+      // console.log(2)
       this.setData({
         menuArr: app.gs('goodsStorage')
       })
       this.chooseAll('must')
     } else {
-      console.log(1)
+      // console.log(1)
       this.setData({
         menuArr: []
       })
     }
+    this.setData({
+      dispatch: app.gs('shop').shop.dispatch
+    })
     // TODO: onShow
   },
 

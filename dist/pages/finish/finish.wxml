@@ -25,10 +25,10 @@
     <view class="c333 fw7">优惠卷</view>
     <view class="f24 c999">{{ coupon_price * 1 ? '优惠金额' + coupon_price + '元' : '未使用优惠卷' }}</view>
   </view>
-  <view class="g-d bd1 lh80 f24">
-    <view class="c333 fw7">预计送达时间</view>
-    <view>{{ sendtime }}</view>
-  </view>
+  <!--<view class="g-d bd1 lh80 f24">-->
+    <!--<view class="c333 fw7">预计送达时间</view>-->
+    <!--<view>{{ sendtime }}</view>-->
+  <!--</view>-->
   <view class="g-d bd1 lh80">
     <view>　</view>
     <view>

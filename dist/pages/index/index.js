@@ -28,6 +28,15 @@ Page({
       r: '8:00-2:00'
     }]
   },
+  MaskGetUserInfo: function MaskGetUserInfo(e) {
+    if (e.detail.iv) {
+      this.setData({
+        needUserInfo: true
+      });
+      app.wxlogin(this.setShopInfo, { id: this.data.options.id });
+    }
+  },
+
   // 关闭新人礼包
   close: function close() {
     var _this = this;
@@ -64,8 +73,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function onLoad(options) {
-    console.log(options);
-    app.wxlogin(this.setShopInfo, { id: options.id });
+    this.setData({
+      options: options
+    });
+    if (app.gs('userInfo')) {
+      this.setData({
+        needUserInfo: true
+      });
+      app.wxlogin(this.setShopInfo, { id: this.data.options.id });
+    }
+    // app.wxlogin(this.setShopInfo, {id: options.id})
     // console.dir(app.data)
   },
 

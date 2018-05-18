@@ -30,6 +30,14 @@ Page({
       }
     ]
   },
+  MaskGetUserInfo (e) {
+    if (e.detail.iv) {
+      this.setData({
+        needUserInfo: true
+      })
+      app.wxlogin(this.setShopInfo, {id: this.data.options.id})
+    }
+  },
   // 关闭新人礼包
   close () {
     if (this.data.small) return
@@ -62,8 +70,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (options) {
-    console.log(options)
-    app.wxlogin(this.setShopInfo, {id: options.id})
+    this.setData({
+      options
+    })
+    if (app.gs('userInfo')) {
+      this.setData({
+        needUserInfo: true
+      })
+      app.wxlogin(this.setShopInfo, {id: this.data.options.id})
+    }
+    // app.wxlogin(this.setShopInfo, {id: options.id})
     // console.dir(app.data)
   },
   /**

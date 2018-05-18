@@ -36,6 +36,7 @@ Page({
   // 确定下单
   confirm: function confirm() {
     if (this.data.allMoney * 1 === 0) return app.setToast(this, { content: '您还没有选择商品咧' });
+    if (this.data.allMoney < this.data.dispatch) return app.setToast(this, { content: '\u62B1\u6B49\uFF0C\u8D77\u9001\u91D1\u989D\u4E3A' + this.data.dispatch + '\u5143\u54E6' });
     var goodsStorage = app.gs('goodsStorage');
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
@@ -283,7 +284,7 @@ Page({
       wx.removeStorageSync('goodsStorage');
     }
     this.setData({
-      allMoney: allMoney
+      allMoney: allMoney.toFixed(2)
     });
   },
 
@@ -370,6 +371,7 @@ Page({
    */
   onLoad: function onLoad() {
     this.getMenuData();
+
     // TODO: onLoad
   },
 
@@ -388,6 +390,9 @@ Page({
   onShow: function onShow() {
     var _this = this;
 
+    this.setData({
+      dispatch: app.gs('shop').shop.dispatch
+    });
     var num = 0;
     var timer = '';
     timer = setTimeout(function () {

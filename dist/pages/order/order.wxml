@@ -6,20 +6,20 @@
 <view class="zw"></view>
 <navigator hover-class="none" url='{{ currentIndex == 2 ? "../finish/finish?id=" + item.o_id : "" }}' class="order" wx:key="*41" wx:for="{{ orderArr }}">
   <view class="o-t f24 c333 lh50"><text>订单编号: {{ item.order_number }}</text><text class="f28">{{ item.status == 1 ? '等待买家付款' : item.status == 2 ? '等待商家发货' : item.status == 3 ? '商家配送中' : item.status == 4 ? '订单已完成' : '订单已取消' }}</text></view>
-  <view class="goods">
-    <image src="{{ item.detail[0].src }}"></image>
+  <view class="goods" wx:for="{{ item.detail }}" wx:if="{{ needshowindex == index ?  'true' : iindex == 0 }}" wx:key="*9873" wx:for-item="iitem" wx:for-index="iindex">
+    <image src="{{ iitem.src }}"></image>
     <view class="g-i">
-      <view class="f30 c333">{{ item.detail[0].goodsname }}</view>
-      <view class="f24 c999">规格： {{ item.detail[0].spec_name }}</view>
+      <view class="f30 c333">{{ iitem.goodsname }}</view>
+      <view class="f24 c999">规格： {{ iitem.spec_name }}</view>
       <view class="g-b">
         <view class="f30 c333">
-          <text class="f24">￥</text>{{ item.detail[0].price }}
+          <text class="f24">￥</text>{{ iitem.price }}
         </view>
-        <view class="f24 c999">×{{ item.detail[0].num }}</view>
+        <view class="f24 c999">×{{ iitem.num }}</view>
       </view>
     </view>
   </view>
-  <view wx:if="{{ item.detail.length >= 2 }}" class="tac o-m bd1">
+  <view wx:if="{{ item.detail.length >= 2 && needshowindex != index}}" catchtap="showAll" data-index="{{ index }}" class="tac o-m bd1">
     <text class="f24 main-text-color">此订单含{{ item.detail.length }}件商品</text>
   </view>
   <view class="f24 c333 o-price bd1 lh70">合计: <text class="f30 main-text-color">{{ item.allMoney }}</text></view>

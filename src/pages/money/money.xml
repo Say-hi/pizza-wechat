@@ -17,7 +17,7 @@
       <view class="f28 c333">{{ item.msg }}</view>
       <view class="f22 c999">{{ item.time }}</view>
     </view>
-    <view class="f28" style="color: {{ item.type == 1 ? '#f30' : '#3c0' }}">{{ item.type == 2 ? '-' : '' }}{{ item.balance }}</view>
+    <view class="f28" style="color: {{ item.type == 1 ? '#f30' : '#3c0' }}">{{ item.type == 2 ? '-' : '+' }}{{ item.balance }}</view>
   </view>
 <view wx:if="{{ !listArr.length }}" class="tac f30 c999 p20">您还没有进行过交易哦~</view>
 </view>
@@ -26,8 +26,8 @@
   <view class="mask-in">
     <view class="mask-title tac lh70">充值</view>
     <form bindsubmit="charge">
-      <input name="money" placeholder="输入充值金额" type="number"/>
-      <view class="tac main-text-color f22 lh50">充100送50</view>
+      <input focus="true" name="money" placeholder="输入充值金额" type="number"/>
+      <view wx:if="{{ chargeArr.length }}" wx:for="{{ chargeArr }}" class="tac main-text-color f22 lh50">充{{ item.satisfy }}送{{ item.send }}</view>
       <view class="mask-btn">
         <button catchtap="show">取消</button>
         <button formType="submit">确认</button>

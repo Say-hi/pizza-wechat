@@ -20,6 +20,8 @@ var serviceUrl = {
   invite: baseDomain + 'api/User/invite',
   getcode: baseDomain + 'api/User/getcode',
   bind: baseDomain + 'api/User/bind',
+  pay: baseDomain + 'api/User/recharge',
+  rechargeSet: baseDomain + 'api/Shop/recharge_set',
   mycoupon: baseDomain + 'api/User/my_coupon'
 };
 module.exports = serviceUrl;

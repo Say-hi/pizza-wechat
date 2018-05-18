@@ -21,26 +21,8 @@ Page({
         wx.hideLoading()
         if (res.data.code === '200') {
           that.setData({
-            userInfo: res.data.data
-          })
-        } else {
-          app.setToast(that, {content: res.data.msg})
-        }
-      }
-    })
-  },
-  getCouponData () {
-    let that = this
-    app.wxrequest({
-      url: app.getUrl().mycoupon,
-      data: {
-        session3rd: app.gs()
-      },
-      success (res) {
-        wx.hideLoading()
-        if (res.data.code === '200') {
-          that.setData({
-            couponCount: res.data.data.wsy.length
+            userInfo: res.data.data,
+            userPhone: res.data.data.phone ? res.data.data.phone.replace(res.data.data.phone.substr(3, 4), '****') : ''
           })
         } else {
           app.setToast(that, {content: res.data.msg})
@@ -69,7 +51,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
-    this.getCouponData()
+    // this.getCouponData()
     this.getUser()
     // TODO: onShow
   },

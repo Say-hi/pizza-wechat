@@ -65,9 +65,8 @@
     <!--<view class="f22" style="color: #f60;">满20元起送</view>-->
   </view>
   <!--<view catchtap="showLostTime" class="f36 cfff confirm tac">提交订单</view>-->
-  <view catchtap="choosePay" class="f36 cfff confirm tac">提交订单</view>
+  <view catchtap="choosePay" class="f36 cfff confirm tac">{{ type == 'second' ? '继续支付' : '提交订单' }}</view>
 </view>
-
 
         <!--错误弹窗-->
 <import src="../template/template"></import>

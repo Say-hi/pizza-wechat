@@ -8,6 +8,17 @@
     </view>
 </template>
 
+<template name="getUserInfo">
+    <view class="mask-t">
+        <view class="mask-toast" >
+            <button open-type="getUserInfo" bindgetuserinfo="MaskGetUserInfo">
+                <image mode="aspectFill" class="mask-image" src="../../images/jiong.png"></image>
+                <view>请您授权该小程序获取您的信息</view>
+            </button>
+        </view>
+    </view>
+</template>
+
 <template name="showGzh">
     <view class="mask-t gzh">
         <view class="mask-toast gzh-w">

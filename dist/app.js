@@ -125,7 +125,7 @@ App({
       nonceStr: obj.nonceStr,
       package: obj.package,
       signType: obj.signType || 'MD5',
-      paySign: obj.paySign,
+      paySign: obj.sign,
       success: obj.success || function (res) {
         console.log('未传入success回调函数', res);
       },
@@ -411,6 +411,7 @@ App({
       success: function success(res) {
         // console.log(res)
         var code = res.code;
+        console.log('code', code);
         // 获取用户信息
         var obj = {
           success: function success(data) {

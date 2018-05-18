@@ -58,7 +58,11 @@ Page({
       itemColor: '#333',
       success (res) {
         if (that.data.lostTime) {
-          that.payMoney(res.tapIndex * 1 + 1, that.data.orderId)
+          if (res.tapIndex * 1 + 1 === 1) {
+            that.payMoney(that.data.orderId)
+          } else {
+            that.payMoneyBywc(that.data.orderId)
+          }
         } else {
           that.orderSubmit(res.tapIndex * 1 + 1)
         }
@@ -157,26 +161,36 @@ Page({
       success (res) {
         wx.hideLoading()
         if (res.data.code === '200') {
-          that.payMoney(type, res.data.data)
+          if (type === 2) {
+            that.payMoneyBywc(res.data.data)
+          } else {
+            that.payMoney(res.data.data)
+          }
         } else {
           app.setToast(that, {content: res.data.msg})
         }
       }
     })
   },
-  payMoney (status, id) {
+  payMoney (id) {
     let that = this
     app.wxrequest({
       url: app.getUrl().orderPay,
       data: {
         session3rd: app.gs(),
-        status,
         o_id: id
       },
       success (res) {
         wx.hideLoading()
         if (res.data.code === '200') {
-          console.log(res)
+          wx.showToast({
+            title: '付款成功'
+          })
+          setTimeout(() => {
+            wx.navigateBack({
+              delta: 1
+            })
+          }, 1000)
         } else {
           app.setToast(that, {content: res.data.msg})
           if (that.data.lostTime) return
@@ -185,6 +199,52 @@ Page({
               url: `../submitOrder/submitOrder?id=${id}&type=second`
             })
           }, 1500)
+        }
+      }
+    })
+  },
+  payMoneyBywc (id) {
+    let that = this
+    app.wxrequest({
+      url: app.getUrl().pay,
+      data: {
+        session3rd: app.gs(),
+        o_id: id
+      },
+      success (res) {
+        wx.hideLoading()
+        if (res.data.code === '200') {
+          res.data.data.timeStamp = res.data.data.timeStamp.toString()
+          res.data.data.success = function (res) {
+            if (res.errMsg = 'requestPayment:ok') {
+              wx.showToast({
+                title: '付款成功'
+              })
+              setTimeout(() => {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }, 1000)
+            } else {
+              app.setToast(that, {content: res.errMsg})
+              setTimeout(() => {
+                wx.redirectTo({
+                  url: `../submitOrder/submitOrder?id=${id}&type=second`
+                })
+              }, 1500)
+            }
+          }
+          res.data.data.fail = function () {
+            app.setToast(that, {content: '支付失败'})
+            setTimeout(() => {
+              wx.redirectTo({
+                url: `../submitOrder/submitOrder?id=${id}&type=second`
+              })
+            }, 1500)
+          }
+          app.wxpay(res.data.data)
+        } else {
+          app.setToast(that, {content: res.data.msg})
         }
       }
     })

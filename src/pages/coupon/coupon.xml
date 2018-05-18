@@ -4,7 +4,7 @@
   <view catchtap="chooseTab" data-index="2" class="{{ currentIndex == 2 ? 'show main-text-color' : 'noshow' }}">已失效</view>
 </view>
 <view wx:if="{{ !needUseCoupon }}" class="zw"></view>
-<view wx:for="{{ couponArr[ currentIndex == 0 ? 'wsy' : currentIndex == 1 ? 'ysy' : 'ysx' ] }}" wx:key="*9" class="coupon">
+<view wx:for="{{ couponArr }}" wx:key="*9" class="coupon">
   <!--左侧-->
   <view class="c-left tac">
     <view>
@@ -19,4 +19,4 @@
     <view wx:if="{{ needUseCoupon  }}" catchtap="{{ item.use_price * 1 <= orderMoney * 1 ?  'useCoupon' : '' }}" data-index="{{ index }}" data-id="{{ item.cd_id }}" class="use-coupon f22 main-text-color">{{ item.use_price * 1 <= orderMoney * 1 ?  '立即使用' : '金额不符'  }}</view>
   </view>
 </view>
-<view class="tac f32 c666" wx:if="{{ !couponArr[ currentIndex == 0 ? 'wsy' : currentIndex == 1 ? 'ysy' : 'ysx' ].length }}">您尚无相关优惠卷哦</view>
+<view class="tac f32 c666" wx:if="{{ !couponArr.length }}">您尚无相关优惠卷哦</view>

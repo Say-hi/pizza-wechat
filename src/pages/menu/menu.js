@@ -31,6 +31,7 @@ Page({
   // 确定下单
   confirm () {
     if (this.data.allMoney * 1 === 0) return app.setToast(this, {content: '您还没有选择商品咧'})
+    if (this.data.allMoney < this.data.dispatch) return app.setToast(this, {content: `抱歉，起送金额为${this.data.dispatch}元哦`})
     let goodsStorage = app.gs('goodsStorage')
     for (let v of goodsStorage) {
       v['checked'] = true
@@ -137,7 +138,7 @@ Page({
       wx.removeStorageSync('goodsStorage')
     }
     this.setData({
-      allMoney
+      allMoney: allMoney.toFixed(2)
     })
   },
   // 选择尺寸
@@ -218,6 +219,7 @@ Page({
    */
   onLoad () {
     this.getMenuData()
+
     // TODO: onLoad
   },
 
@@ -232,6 +234,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow () {
+    this.setData({
+      dispatch: app.gs('shop').shop.dispatch
+    })
     let num = 0
     let timer = ''
     timer = setTimeout(() => {

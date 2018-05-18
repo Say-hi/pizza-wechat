@@ -121,8 +121,9 @@ page {
       border-radius: 44rpx;
       line-height: 44rpx;
       padding: 0 20rpx;
+      width: 146rpx;
+      text-align: center;
     }
-
     .m-l-r {
       display: flex;
       align-items: center;
@@ -130,19 +131,27 @@ page {
       .order-btn, .order-num {
         width: @lengtht;
         height: @lengtht;
-        line-height: @lengtht - 5;
-        text-align: center;
+        //line-height: @lengtht - 5;
+        //text-align: center;
         border-radius: 50%;
         background-color: @mainBackgroundColor;
         margin: 0 10rpx;
-        vertical-align: middle;
-        font-size: 50rpx;
+        position: relative;
+        //vertical-align: middle;
+        //font-size: 50rpx;
+      }
+      .order-btn::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
       .order-num {
         background: #fff;
         margin: 0;
         width: inherit;
-        font-size: 24rpx;
+        line-height: @lengtht + 5;
+        font-size: 28rpx;
       }
     }
   }
@@ -214,9 +223,9 @@ page {
     transform: translateY(-50%);
     border-radius: 50%;
     display: inline-block;
-    width: 40rpx;
-    height: 40rpx;
-    line-height: 40rpx;
+    width: 50rpx;
+    height: 50rpx;
+    line-height: 45rpx;
     text-align: center;
   }
   .size-w {
@@ -229,9 +238,12 @@ page {
     background-color: #e1e1e1;
     color: #666 !important;
     border-radius: 5rpx;
-    margin: 10rpx 5rpx;
+    margin: 10rpx 20rpx;
     //display: inline-block;
     word-break: keep-all;
+  }
+  .size:nth-child(1) {
+    margin-left: 0;
   }
   .size-choose {
     background: @mainBackgroundColor;
@@ -248,23 +260,31 @@ page {
     display: flex;
     align-items: center;
   }
-  @length: 44rpx;
+  @length: 50rpx;
   .order-btn, .order-num {
+    position: relative;
     width: @length;
     height: @length;
-    line-height: @length;
-    text-align: center;
+    //line-height: @length - 5;
+    //text-align: center;
     border-radius: 50%;
     background-color: @mainBackgroundColor;
     margin: 0 10rpx;
-    vertical-align: middle;
-    font-size: 50rpx;
+    //vertical-align: middle;
+    //font-size: 50rpx;
+  }
+  .order-btn::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   .order-num {
     background: #fff;
-    margin: 0;
+    margin: 0 10rpx;
     width: inherit;
-    font-size: 24rpx;
+    line-height: @length + 5;
+    font-size: 28rpx;
   }
   .m-confirm {
     margin-top: 40rpx;
@@ -280,6 +300,7 @@ page {
     }
     .add-car {
       background: #f63;
+      line-height: 64rpx;
     }
     .buy-now {
       background-color: @mainBackgroundColor;

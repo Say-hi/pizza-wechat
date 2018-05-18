@@ -8,13 +8,17 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {},
+  data: {
+    listArr: [],
+    page: -1
+  },
   getDetail: function getDetail() {
     var that = this;
     app.wxrequest({
       url: app.getUrl().myintegra,
       data: {
-        session3rd: app.gs()
+        session3rd: app.gs(),
+        page: ++this.data.page
       },
       success: function success(res) {
         wx.hideLoading();
@@ -47,7 +51,8 @@ Page({
           that.setData({
             set: res.data.data.set,
             get: res.data.data.get,
-            listArr: res.data.data.list
+            listArr: that.data.listArr.concat(res.data.data.list),
+            more: res.data.data.length < 10 ? 0 : 1
           });
         } else {
           app.setToast(that, { content: res.data.msg });
@@ -87,7 +92,10 @@ Page({
     this.getDetail();
     // TODO: onLoad
   },
-
+  onReachBottom: function onReachBottom() {
+    if (!this.data.more) return app.setToast(this, { content: '您没有更多信息啦' });
+    this.getDetail();
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

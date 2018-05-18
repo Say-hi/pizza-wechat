@@ -1,1 +1,1 @@
-{"version":3,"sources":["common/shape.less"],"names":[],"mappings":"AAEA;EACE,8BAAA","sourcesContent":["@import \"variable\";\r\n\r\n.bt1 {\r\n  border-top: 1rpx solid #f0f0f0;\r\n}"],"file":"shape.wxss"}
+{"version":3,"sources":["common/shape.less"],"names":[],"mappings":"AAEA;EACE,8BAAA;;AAEF;EACE,gBAAA","sourcesContent":["@import \"variable\";\r\n\r\n.bt1 {\r\n  border-top: 1rpx solid #f0f0f0;\r\n}\r\n.order-num {\r\n  font-weight: 700;\r\n}"],"file":"shape.wxss"}

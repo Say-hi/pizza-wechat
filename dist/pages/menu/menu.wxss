@@ -120,6 +120,8 @@ page {
   border-radius: 44rpx;
   line-height: 44rpx;
   padding: 0 20rpx;
+  width: 146rpx;
+  text-align: center;
 }
 .menu-list .m-l .m-l-r {
   display: flex;
@@ -129,19 +131,23 @@ page {
 .menu-list .m-l .m-l-r .order-num {
   width: 50rpx;
   height: 50rpx;
-  line-height: 45rpx;
-  text-align: center;
   border-radius: 50%;
   background-color: #f30;
   margin: 0 10rpx;
-  vertical-align: middle;
-  font-size: 50rpx;
+  position: relative;
+}
+.menu-list .m-l .m-l-r .order-btn::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .menu-list .m-l .m-l-r .order-num {
   background: #fff;
   margin: 0;
   width: inherit;
-  font-size: 24rpx;
+  line-height: 55rpx;
+  font-size: 28rpx;
 }
 .menu-list .zw {
   height: 90rpx;
@@ -209,9 +215,9 @@ page {
   transform: translateY(-50%);
   border-radius: 50%;
   display: inline-block;
-  width: 40rpx;
-  height: 40rpx;
-  line-height: 40rpx;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 45rpx;
   text-align: center;
 }
 .mask-in .size-w {
@@ -224,8 +230,11 @@ page {
   background-color: #e1e1e1;
   color: #666 !important;
   border-radius: 5rpx;
-  margin: 10rpx 5rpx;
+  margin: 10rpx 20rpx;
   word-break: keep-all;
+}
+.mask-in .size:nth-child(1) {
+  margin-left: 0;
 }
 .mask-in .size-choose {
   background: #f30;
@@ -244,21 +253,25 @@ page {
 }
 .mask-in .order-btn,
 .mask-in .order-num {
-  width: 44rpx;
-  height: 44rpx;
-  line-height: 44rpx;
-  text-align: center;
+  position: relative;
+  width: 50rpx;
+  height: 50rpx;
   border-radius: 50%;
   background-color: #f30;
   margin: 0 10rpx;
-  vertical-align: middle;
-  font-size: 50rpx;
+}
+.mask-in .order-btn::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .mask-in .order-num {
   background: #fff;
-  margin: 0;
+  margin: 0 10rpx;
   width: inherit;
-  font-size: 24rpx;
+  line-height: 55rpx;
+  font-size: 28rpx;
 }
 .mask-in .m-confirm {
   margin-top: 40rpx;
@@ -275,6 +288,7 @@ page {
 }
 .mask-in .m-confirm .add-car {
   background: #f63;
+  line-height: 64rpx;
 }
 .mask-in .m-confirm .buy-now {
   background-color: #f30;
